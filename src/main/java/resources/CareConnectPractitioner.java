@@ -1,13 +1,12 @@
 package resources;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hl7.fhir.dstu3.model.BackboneElement;
 import org.hl7.fhir.dstu3.model.BooleanType;
 import org.hl7.fhir.dstu3.model.CodeableConcept;
-import org.hl7.fhir.dstu3.model.Identifier;
 import org.hl7.fhir.dstu3.model.Practitioner;
-import org.hl7.fhir.dstu3.model.Reference;
 
 import ca.uhn.fhir.model.api.annotation.Block;
 import ca.uhn.fhir.model.api.annotation.Child;
@@ -21,44 +20,49 @@ public class CareConnectPractitioner extends Practitioner {
 
 	private static final long serialVersionUID = 1L;
 	
-	@Child(name = "sdsUserID", type = {Identifier.class}, order=0, min=0, max=1, modifier=false, summary=true)
-	@Extension(url="https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Organization-1", definedLocally=false, isModifier=false)
-    @Description(shortDefinition="Organizations are known by a variety of ids. Some institutions maintain several, and most collect identifiers for exchange with other organizations concerning the organization.", formalDefinition="An identifier for this patient." )
-    protected List<Identifier> sdsUserID;
+	@Child(name="identifier", order=Child.REPLACE_PARENT, min=0, max=Child.MAX_UNLIMITED, modifier=true, summary=true)
+    @Description(shortDefinition="Practitioner identifiers")
+    protected List<datatypes.Identifier> identifier = new ArrayList<>();
 	
-	@Child(name = "sdsRoleProfileID", type = {Identifier.class}, order=0, min=0, max=Child.MAX_UNLIMITED, modifier=false, summary=true)
-	@Extension(url="https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Organization-1", definedLocally=false, isModifier=false)
-    @Description(shortDefinition="Organizations are known by a variety of ids. Some institutions maintain several, and most collect identifiers for exchange with other organizations concerning the organization.", formalDefinition="ODS Site code to identify the organisation at site level" )
-    protected List<Identifier> sdsRoleProfileID;
-	
-	@Child(name="nhsCommunication")  
+	public Practitioner addIdentifier(datatypes.Identifier identifier) {
+		this.identifier.add(identifier);
+		return this;
+	}
+
+    @Child(name = "nhsCommunication")
     @Extension(url="https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-NHSCommunication-1", definedLocally=false, isModifier=false)
-    @Description(shortDefinition="Communication preferences including a list of Languages which may be used for communication")
-    private Reference nhsCommunication;
+    protected NhsCommunicationExtension nhsCommunication;
 	
+    public NhsCommunicationExtension getNhsCommunication() {
+		return nhsCommunication;
+	}
+	public void setNhsCommunication(NhsCommunicationExtension nhsCommunication) {
+		this.nhsCommunication = nhsCommunication;
+	}
+
 	@Block
     public static class NhsCommunicationExtension extends BackboneElement {
-		
+    	
 		private static final long serialVersionUID = 2L;
 		
-		@Child(name="language")  
-	    @Extension(url="https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-NHSCommunication-1", definedLocally=false, isModifier=false)
+		@Child(name="language") 
+		@Extension(url="https://fhir.hl7.org.uk/STU3/ValueSet/CareConnect-HumanLanguage-1", definedLocally = false, isModifier = false)
 		private CodeableConcept language;
 		
 		@Child(name="preferred")  
-	    @Extension(url="https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-NHSCommunication-1", definedLocally=false, isModifier=false)
+		@Extension(url="preferred", definedLocally = false, isModifier = false)
 		private BooleanType preferred;
 		
-		@Child(name="modeOfCommunication")  
-	    @Extension(url="https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-NHSCommunication-1", definedLocally=false, isModifier=false)
+		@Child(name="modeOfCommunication")
+		@Extension(url="https://fhir.hl7.org.uk/STU3/ValueSet/CareConnect-LanguageAbilityMode-1", definedLocally = false, isModifier = false)
 		private CodeableConcept modeOfCommunication;
 		
 		@Child(name="communicationProficiency")  
-	    @Extension(url="https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-NHSCommunication-1", definedLocally=false, isModifier=false)
+		@Extension(url="https://fhir.hl7.org.uk/STU3/ValueSet/CareConnect-LanguageAbilityProficiency-1", definedLocally = false, isModifier = false)
 		private CodeableConcept communicationProficiency;
 		
 		@Child(name="interpreterRequired")  
-	    @Extension(url="https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-NHSCommunication-1", definedLocally=false, isModifier=false)
+		@Extension(url="interpreterRequired", definedLocally = false, isModifier = false)
 		private BooleanType interpreterRequired;
 		
 		@Override
@@ -116,10 +120,6 @@ public class CareConnectPractitioner extends Practitioner {
 
 		public void setInterpreterRequired(BooleanType interpreterRequired) {
 			this.interpreterRequired = interpreterRequired;
-		}
-
-		public static long getSerialversionuid() {
-			return serialVersionUID;
 		}
 		
 	}

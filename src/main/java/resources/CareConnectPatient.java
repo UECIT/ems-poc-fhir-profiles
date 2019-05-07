@@ -1,5 +1,6 @@
 package resources;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hl7.fhir.dstu3.model.Address;
@@ -9,13 +10,13 @@ import org.hl7.fhir.dstu3.model.CodeableConcept;
 import org.hl7.fhir.dstu3.model.Patient;
 import org.hl7.fhir.dstu3.model.Reference;
 
+import ca.uhn.fhir.model.api.annotation.Binding;
 import ca.uhn.fhir.model.api.annotation.Block;
 import ca.uhn.fhir.model.api.annotation.Child;
 import ca.uhn.fhir.model.api.annotation.Description;
 import ca.uhn.fhir.model.api.annotation.Extension;
 import ca.uhn.fhir.model.api.annotation.ResourceDef;
 import ca.uhn.fhir.util.ElementUtil;
-import datatypes.BirthDateType;
 import datatypes.NHSNumberIdentifier;
 
 @ResourceDef(name="Patient", profile="https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Patient-1")
@@ -23,10 +24,17 @@ public class CareConnectPatient extends Patient {
 	
 	private static final long serialVersionUID = 1L;
 	
-	@Child(name = "identifier", type = {NHSNumberIdentifier.class}, order=0, min=0, max=Child.REPLACE_PARENT, modifier=false, summary=true)
-	@Extension(url="https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-NHSNumberVerificationStatus-1", definedLocally=false, isModifier=false)
-    @Description(shortDefinition="An identifier for this patient", formalDefinition="An identifier for this patient." )
-    protected List<NHSNumberIdentifier> identifier;
+	@Child(name="identifier", type={NHSNumberIdentifier.class}, order=Child.REPLACE_PARENT, min=0, max=Child.MAX_UNLIMITED, modifier=false, summary=true)
+    @Description(
+    	shortDefinition="An identifier for this patient", 
+    	formalDefinition="An identifier for this patient." 
+    )
+    protected List<NHSNumberIdentifier> identifier = new ArrayList<>();
+	
+	public Patient addIdentifier(NHSNumberIdentifier identifier) {
+		this.identifier.add(identifier);
+		return super.addIdentifier(identifier);
+	}
 
 	@Child(name="ethnicCategory")  
     @Extension(url="https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-EthnicCategory-1", definedLocally=false, isModifier=false)
@@ -64,24 +72,19 @@ public class CareConnectPatient extends Patient {
 		private static final long serialVersionUID = 2L;
 		
 		@Child(name="language")  
-	    @Extension(url="https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-NHSCommunication-1", definedLocally=false, isModifier=false)
-		private CodeableConcept language;
+		private org.hl7.fhir.dstu3.model.Extension language;
 		
 		@Child(name="preferred")  
-	    @Extension(url="https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-NHSCommunication-1", definedLocally=false, isModifier=false)
-		private BooleanType preferred;
+	    private org.hl7.fhir.dstu3.model.Extension preferred;
 		
 		@Child(name="modeOfCommunication")  
-	    @Extension(url="https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-NHSCommunication-1", definedLocally=false, isModifier=false)
-		private CodeableConcept modeOfCommunication;
+	    private org.hl7.fhir.dstu3.model.Extension modeOfCommunication;
 		
 		@Child(name="communicationProficiency")  
-	    @Extension(url="https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-NHSCommunication-1", definedLocally=false, isModifier=false)
-		private CodeableConcept communicationProficiency;
+	    private org.hl7.fhir.dstu3.model.Extension communicationProficiency;
 		
 		@Child(name="interpreterRequired")  
-	    @Extension(url="https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-NHSCommunication-1", definedLocally=false, isModifier=false)
-		private BooleanType interpreterRequired;
+	    private org.hl7.fhir.dstu3.model.Extension interpreterRequired;
 		
 		@Override
 		public BackboneElement copy() {
@@ -100,43 +103,43 @@ public class CareConnectPatient extends Patient {
         }
 
 		// Getters and Setters
-		public CodeableConcept getLanguage() {
+		public org.hl7.fhir.dstu3.model.Extension getLanguage() {
 			return language;
 		}
 
-		public void setLanguage(CodeableConcept language) {
+		public void setLanguage(org.hl7.fhir.dstu3.model.Extension language) {
 			this.language = language;
 		}
 
-		public BooleanType getPreferred() {
+		public org.hl7.fhir.dstu3.model.Extension getPreferred() {
 			return preferred;
 		}
 
-		public void setPreferred(BooleanType preferred) {
+		public void setPreferred(org.hl7.fhir.dstu3.model.Extension preferred) {
 			this.preferred = preferred;
 		}
 
-		public CodeableConcept getModeOfCommunication() {
+		public org.hl7.fhir.dstu3.model.Extension getModeOfCommunication() {
 			return modeOfCommunication;
 		}
 
-		public void setModeOfCommunication(CodeableConcept modeOfCommunication) {
+		public void setModeOfCommunication(org.hl7.fhir.dstu3.model.Extension modeOfCommunication) {
 			this.modeOfCommunication = modeOfCommunication;
 		}
 
-		public CodeableConcept getCommunicationProficiency() {
+		public org.hl7.fhir.dstu3.model.Extension getCommunicationProficiency() {
 			return communicationProficiency;
 		}
 
-		public void setCommunicationProficiency(CodeableConcept communicationProficiency) {
+		public void setCommunicationProficiency(org.hl7.fhir.dstu3.model.Extension communicationProficiency) {
 			this.communicationProficiency = communicationProficiency;
 		}
 
-		public BooleanType getInterpreterRequired() {
+		public org.hl7.fhir.dstu3.model.Extension getInterpreterRequired() {
 			return interpreterRequired;
 		}
 
-		public void setInterpreterRequired(BooleanType interpreterRequired) {
+		public void setInterpreterRequired(org.hl7.fhir.dstu3.model.Extension interpreterRequired) {
 			this.interpreterRequired = interpreterRequired;
 		}
 
@@ -145,16 +148,23 @@ public class CareConnectPatient extends Patient {
 		}
 		
 	}
-	
 
-	@Child(name = "birthDate", type = {BirthDateType.class}, order=Child.REPLACE_PARENT, min=0, max=1, modifier=false, summary=true)
-	@Extension(definedLocally = false, isModifier = false, url = "")
-    @Description(shortDefinition="The date of birth for the individual", formalDefinition="The date of birth for the individual." )
-	private BirthDateType birthDate;
+//	@Child(name = "birthDate", type = {BirthDateType.class}, order=Child.REPLACE_PARENT, min=0, max=1, modifier=false, summary=true)
+//    @Description(shortDefinition="The date of birth for the individual", formalDefinition="The date of birth for the individual." )
+//	private DateType birthDate;
+//	
+//    public CareConnectPatient setBirthDate(Date birthDate) { 
+//    	this.birthDate = new BirthDateType().setBirthTime(new DateTimeType(birthDate));
+//        return this;
+//    }
 
 	@Child(name="birthPlace")  
     @Extension(url="http://hl7.org/fhir/StructureDefinition/birthPlace", definedLocally=false, isModifier=false)
-    @Description(shortDefinition="The registered place of birth of the patient. A sytem may use the address.text if they don't store the birthPlace address in discrete elements.")
+    @Description(
+    	shortDefinition=
+    		"The registered place of birth of the patient. A sytem may use " +
+    		"the address.text if they don't store the birthPlace address in discrete elements."
+    )
     private Address birthPlace;
 	
 	// TODO REFERENCETYPE - figure out how to represent/constrain this.
@@ -166,7 +176,11 @@ public class CareConnectPatient extends Patient {
 	//	TODO EXTENSION WITH EXTENSIONS - figure out how to define.
 	@Child(name="deathNotificationStatus")  
     @Extension(url="https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-DeathNotificationStatus-1", definedLocally=false, isModifier=false)
-    @Description(shortDefinition="This extension is constrained to represent a patient’s death notification (as held on Personal Demographics Service (PDS)).")
+    @Description(
+    	shortDefinition=
+    		"This extension is constrained to represent a patient’s death notification " +
+    		"(as held on Personal Demographics Service (PDS))."
+    )
     private DeathNotificationStatusExtension deathNotificationStatus;
 	
 	@Block
@@ -175,11 +189,10 @@ public class CareConnectPatient extends Patient {
 		private static final long serialVersionUID = 3L;
 		
 		@Child(name="deathNotificationStatus")  
-	    @Extension(url="https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-DeathNotificationStatus-1", definedLocally=false, isModifier=false)
+	    @Binding(valueSet="https://fhir.hl7.org.uk/STU3/ValueSet/CareConnect-DeathNotificationStatus-1")
 		private CodeableConcept deathNotificationStatus;
 		
 		@Child(name="systemEffectiveDate")  
-	    @Extension(url="https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-DeathNotificationStatus-1", definedLocally=false, isModifier=false)
 		private BooleanType systemEffectiveDate;
 
 		@Override
@@ -218,12 +231,27 @@ public class CareConnectPatient extends Patient {
 		
 	}
 	
-	@Child(name = "generalPractitioner", type = {CareConnectOrganization.class, CareConnectPractitioner.class}, order=14, min=0, max=Child.MAX_UNLIMITED, modifier=false, summary=false)
-    @Description(shortDefinition="Patient's nominated primary care provider", formalDefinition="Patient's nominated care provider." )
-    protected List<Reference> generalPractitioner;
+	@Child(
+		name="generalPractitioner", type={CareConnectOrganization.class, CareConnectPractitioner.class}, 
+		order=Child.REPLACE_PARENT, min=0, max=Child.MAX_UNLIMITED, modifier=false, summary=false
+	)
+    @Description(
+    	shortDefinition="Patient's nominated primary care provider", 
+    	formalDefinition="Patient's nominated primary care provider." 
+    )
+    protected List<Reference> generalPractitioner = new ArrayList<>();
 	
-	@Child(name = "managingOrganization", type = {CareConnectOrganization.class}, order=15, min=0, max=1, modifier=false, summary=true)
-    @Description(shortDefinition="Organization that is the custodian of the patient record", formalDefinition="Organization that is the custodian of the patient record." )
+	@Override
+	public Patient addGeneralPractitioner(Reference reference) {
+		generalPractitioner.add(reference);
+		return super.addGeneralPractitioner(reference);
+	}
+	
+	@Child(name = "managingOrganization", type = {CareConnectOrganization.class}, order=Child.REPLACE_PARENT, min=0, max=1, modifier=false, summary=true)
+    @Description(
+    	shortDefinition="Organization that is the custodian of the patient record", 
+    	formalDefinition="Organization that is the custodian of the patient record." 
+    )
     protected Reference managingOrganization;
 	
 	// Getters and setters
