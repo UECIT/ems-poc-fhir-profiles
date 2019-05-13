@@ -242,6 +242,11 @@ public class CareConnectPatient extends Patient {
     protected List<Reference> generalPractitioner = new ArrayList<>();
 	
 	@Override
+	public List<Reference> getGeneralPractitioner() {
+		return generalPractitioner;
+	}
+
+	@Override
 	public Patient addGeneralPractitioner(Reference reference) {
 		generalPractitioner.add(reference);
 		return super.addGeneralPractitioner(reference);
