@@ -10,16 +10,17 @@ import org.hl7.fhir.dstu3.model.MedicationAdministration;
 import org.hl7.fhir.dstu3.model.Observation;
 import org.hl7.fhir.dstu3.model.Procedure;
 import org.hl7.fhir.dstu3.model.Reference;
-import org.hl7.fhir.dstu3.model.RelatedPerson;
 import org.hl7.fhir.dstu3.model.Substance;
 
 import ca.uhn.fhir.model.api.annotation.Block;
 import ca.uhn.fhir.model.api.annotation.Child;
 import ca.uhn.fhir.model.api.annotation.Description;
 import ca.uhn.fhir.model.api.annotation.Extension;
+import ca.uhn.fhir.model.api.annotation.ResourceDef;
 import datatypes.Annotation;
 import datatypes.Identifier;
 
+@ResourceDef(name="Procedure", profile="https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Procedure-1")
 public class CareConnectProcedure extends Procedure {
 
 	private static final long serialVersionUID = 1L;
@@ -166,7 +167,7 @@ public class CareConnectProcedure extends Procedure {
          */
         @Child(
         	name="actor", type={CareConnectPractitioner.class, CareConnectOrganization.class, 
-        	CareConnectPatient.class, RelatedPerson.class, Device.class}, 
+        	CareConnectPatient.class, CareConnectRelatedPerson.class, Device.class}, 
         	order=Child.REPLACE_PARENT, min=0, max=1, modifier=false, summary=true
         )
         @Description(

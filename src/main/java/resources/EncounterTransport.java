@@ -5,9 +5,11 @@ import org.hl7.fhir.dstu3.model.Period;
 import org.hl7.fhir.dstu3.model.StringType;
 
 import ca.uhn.fhir.model.api.annotation.Child;
+import ca.uhn.fhir.model.api.annotation.DatatypeDef;
 import ca.uhn.fhir.model.api.annotation.Description;
 import ca.uhn.fhir.model.api.annotation.Extension;
 
+@DatatypeDef(name="EncounterTransport")
 public class EncounterTransport extends org.hl7.fhir.dstu3.model.Extension {
 	
 	private static final long serialVersionUID = 1L;
@@ -24,10 +26,10 @@ public class EncounterTransport extends org.hl7.fhir.dstu3.model.Extension {
 	
 	@Child(name="reasonForTransport", order=4, min=0, max=1, modifier=false, summary=true)
     @Description(shortDefinition="Transport type")
-	@Extension(url="transportType", definedLocally=false, isModifier=false)
+	@Extension(url="reasonForTransport", definedLocally=false, isModifier=false)
 	protected StringType reasonForTransport;
 
-    @Child(name="value", order=Child.ORDER_UNKNOWN, min=0, max=0, modifier=false, summary=false)
+    @Child(name="value", order=Child.REPLACE_PARENT, min=0, max=0, modifier=false, summary=false)
     @Description(
     	shortDefinition="Value of extension", 
     	formalDefinition=

@@ -8,11 +8,9 @@ import org.hl7.fhir.dstu3.model.CodeableConcept;
 import org.hl7.fhir.dstu3.model.Condition;
 import org.hl7.fhir.dstu3.model.DiagnosticReport;
 import org.hl7.fhir.dstu3.model.Enumeration;
-import org.hl7.fhir.dstu3.model.EpisodeOfCare;
 import org.hl7.fhir.dstu3.model.Group;
 import org.hl7.fhir.dstu3.model.Observation;
 import org.hl7.fhir.dstu3.model.Reference;
-import org.hl7.fhir.dstu3.model.RelatedPerson;
 
 import ca.uhn.fhir.model.api.annotation.Binding;
 import ca.uhn.fhir.model.api.annotation.Block;
@@ -93,7 +91,7 @@ public class CareConnectCondition extends Condition {
      * Encounter during which the condition was first asserted.
      */
     @Child(
-    	name="context", type={CareConnectEncounter.class, EpisodeOfCare.class}, 
+    	name="context", type={CareConnectEncounter.class, CareConnectEpisodeOfCare.class}, 
     	order=Child.REPLACE_PARENT, min=0, max=1, modifier=false, summary=true
     )
     @Description(
@@ -107,7 +105,7 @@ public class CareConnectCondition extends Condition {
      */
     @Child(
     	name="asserter", 
-    	type={CareConnectPractitioner.class, CareConnectPatient.class, RelatedPerson.class}, 
+    	type={CareConnectPractitioner.class, CareConnectPatient.class, CareConnectRelatedPerson.class}, 
     	order=Child.REPLACE_PARENT, min=0, max=1, modifier=false, summary=true
     )
     @Description(

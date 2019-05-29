@@ -7,7 +7,9 @@ import org.hl7.fhir.dstu3.model.Identifier;
 
 import ca.uhn.fhir.model.api.annotation.Child;
 import ca.uhn.fhir.model.api.annotation.Description;
+import ca.uhn.fhir.model.api.annotation.ResourceDef;
 
+@ResourceDef(name="HealthcareService", profile="https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-HealthcareService-1")
 public class CareConnectHealthcareService extends HealthcareService {
 
 	private static final long serialVersionUID = 1L;

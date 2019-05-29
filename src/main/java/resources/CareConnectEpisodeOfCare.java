@@ -10,8 +10,10 @@ import org.hl7.fhir.dstu3.model.ReferralRequest;
 import ca.uhn.fhir.model.api.annotation.Block;
 import ca.uhn.fhir.model.api.annotation.Child;
 import ca.uhn.fhir.model.api.annotation.Description;
+import ca.uhn.fhir.model.api.annotation.ResourceDef;
 import datatypes.Identifier;
 
+@ResourceDef(name="EpisodeOfCare", profile="https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-EpisodeOfCare-1")
 public class CareConnectEpisodeOfCare extends EpisodeOfCare {
 
 	private static final long serialVersionUID = 1L;

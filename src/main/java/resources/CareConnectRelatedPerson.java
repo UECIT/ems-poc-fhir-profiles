@@ -7,8 +7,10 @@ import org.hl7.fhir.dstu3.model.RelatedPerson;
 
 import ca.uhn.fhir.model.api.annotation.Child;
 import ca.uhn.fhir.model.api.annotation.Description;
+import ca.uhn.fhir.model.api.annotation.ResourceDef;
 import datatypes.Identifier;
 
+@ResourceDef(name="RelatedPerson", profile="https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-RelatedPerson-1")
 public class CareConnectRelatedPerson extends RelatedPerson {
 
 	private static final long serialVersionUID = 1L;

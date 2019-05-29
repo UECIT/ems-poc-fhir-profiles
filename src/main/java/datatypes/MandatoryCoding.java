@@ -6,8 +6,10 @@ import org.hl7.fhir.dstu3.model.StringType;
 import org.hl7.fhir.dstu3.model.UriType;
 
 import ca.uhn.fhir.model.api.annotation.Child;
+import ca.uhn.fhir.model.api.annotation.DatatypeDef;
 import ca.uhn.fhir.model.api.annotation.Description;
 
+@DatatypeDef(name="Coding")
 public class MandatoryCoding extends Coding {
 
 	private static final long serialVersionUID = 1L;
