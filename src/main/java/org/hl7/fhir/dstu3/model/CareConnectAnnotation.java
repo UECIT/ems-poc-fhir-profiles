@@ -1,4 +1,4 @@
-package datatypes;
+package org.hl7.fhir.dstu3.model;
 
 import org.hl7.fhir.dstu3.model.StringType;
 import org.hl7.fhir.dstu3.model.Type;
@@ -6,12 +6,9 @@ import org.hl7.fhir.dstu3.model.Type;
 import ca.uhn.fhir.model.api.annotation.Child;
 import ca.uhn.fhir.model.api.annotation.DatatypeDef;
 import ca.uhn.fhir.model.api.annotation.Description;
-import resources.CareConnectPatient;
-import resources.CareConnectPractitioner;
-import resources.CareConnectRelatedPerson;
 
 @DatatypeDef(name="Annotation")
-public class Annotation extends org.hl7.fhir.dstu3.model.Annotation {
+public class CareConnectAnnotation extends Annotation {
 
 	private static final long serialVersionUID = 1L;
 

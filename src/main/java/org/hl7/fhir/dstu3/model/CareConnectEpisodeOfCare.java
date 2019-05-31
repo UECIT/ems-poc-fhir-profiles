@@ -1,8 +1,7 @@
-package resources;
+package org.hl7.fhir.dstu3.model;
 
 import java.util.List;
 
-import org.hl7.fhir.dstu3.model.CareTeam;
 import org.hl7.fhir.dstu3.model.EpisodeOfCare;
 import org.hl7.fhir.dstu3.model.Reference;
 import org.hl7.fhir.dstu3.model.ReferralRequest;
@@ -11,20 +10,19 @@ import ca.uhn.fhir.model.api.annotation.Block;
 import ca.uhn.fhir.model.api.annotation.Child;
 import ca.uhn.fhir.model.api.annotation.Description;
 import ca.uhn.fhir.model.api.annotation.ResourceDef;
-import datatypes.Identifier;
 
 @ResourceDef(name="EpisodeOfCare", profile="https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-EpisodeOfCare-1")
 public class CareConnectEpisodeOfCare extends EpisodeOfCare {
 
 	private static final long serialVersionUID = 1L;
 
-    @Child(name="identifier", type={Identifier.class}, order=Child.REPLACE_PARENT, min=0, max=Child.MAX_UNLIMITED, modifier=false, summary=false)
+    @Child(name="identifier", type={CareConnectIdentifier.class}, order=Child.REPLACE_PARENT, min=0, max=Child.MAX_UNLIMITED, modifier=false, summary=false)
     @Description(
     	shortDefinition="Business Identifier(s) relevant for this EpisodeOfCare", 
     	formalDefinition=
     		"The EpisodeOfCare may be known by different identifiers for different contexts of use, " +
     		"such as when an external agency is tracking the Episode for funding purposes." )
-    protected List<Identifier> identifier;
+    protected List<CareConnectIdentifier> identifier;
     
     /**
      * The patient who is the focus of this episode of care.
@@ -79,7 +77,7 @@ public class CareConnectEpisodeOfCare extends EpisodeOfCare {
     /**
      * The list of practitioners that may be facilitating this episode of care for specific purposes.
      */
-    @Child(name="team", type={CareTeam.class}, order=Child.REPLACE_PARENT, min=0, max=Child.MAX_UNLIMITED, modifier=false, summary=false)
+    @Child(name="team", type={CareConnectCareTeam.class}, order=Child.REPLACE_PARENT, min=0, max=Child.MAX_UNLIMITED, modifier=false, summary=false)
     @Description(
     	shortDefinition="Other practitioners facilitating this episode of care", 
     	formalDefinition="The list of practitioners that may be facilitating this episode of care for specific purposes." 

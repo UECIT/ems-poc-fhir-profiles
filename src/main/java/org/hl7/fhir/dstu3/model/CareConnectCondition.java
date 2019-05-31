@@ -1,4 +1,4 @@
-package resources;
+package org.hl7.fhir.dstu3.model;
 
 import java.util.List;
 
@@ -9,7 +9,6 @@ import org.hl7.fhir.dstu3.model.Condition;
 import org.hl7.fhir.dstu3.model.DiagnosticReport;
 import org.hl7.fhir.dstu3.model.Enumeration;
 import org.hl7.fhir.dstu3.model.Group;
-import org.hl7.fhir.dstu3.model.Observation;
 import org.hl7.fhir.dstu3.model.Reference;
 
 import ca.uhn.fhir.model.api.annotation.Binding;
@@ -18,8 +17,6 @@ import ca.uhn.fhir.model.api.annotation.Child;
 import ca.uhn.fhir.model.api.annotation.Description;
 import ca.uhn.fhir.model.api.annotation.Extension;
 import ca.uhn.fhir.model.api.annotation.ResourceDef;
-import datatypes.Annotation;
-import datatypes.Identifier;
 
 @ResourceDef(name="Condition", 
 			 profile="https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Condition-1")
@@ -33,7 +30,7 @@ public class CareConnectCondition extends Condition {
 	@Binding(valueSet="https://fhir.hl7.org.uk/STU3/ValueSet/CareConnect-ConditionEpisodicity-1")
     private CodeableConcept episodisity;
 	
-    @Child(name="identifier", type={Identifier.class}, 
+    @Child(name="identifier", type={CareConnectIdentifier.class}, 
     	order=Child.REPLACE_PARENT, min=0, max=Child.MAX_UNLIMITED, modifier=false, summary=true
     )
     @Description(
@@ -43,7 +40,7 @@ public class CareConnectCondition extends Condition {
 	    	"by business processes and/or used to refer to it when a direct URL reference to the resource " +
 	    	"itself is not appropriate (e.g. in CDA documents, or in written / printed documentation)." 
 	)
-    protected List<Identifier> identifier;
+    protected List<CareConnectIdentifier> identifier;
     
     /**
      * The verification status to support the clinical status of the condition.
@@ -128,14 +125,14 @@ public class CareConnectCondition extends Condition {
      * Additional information about the Condition. This is a general notes/comments entry  for description of the Condition, its diagnosis and prognosis.
      */
     @Child(
-    		name="note", type={Annotation.class}, order=Child.REPLACE_PARENT, min=0, max=Child.MAX_UNLIMITED, modifier=false, summary=false)
+    		name="note", type={CareConnectAnnotation.class}, order=Child.REPLACE_PARENT, min=0, max=Child.MAX_UNLIMITED, modifier=false, summary=false)
     @Description(
     	shortDefinition="Additional information about the Condition", 
     	formalDefinition=
     		"Additional information about the Condition. This is a general notes/comments entry " +
     		"for description of the Condition, its diagnosis and prognosis." 
     )
-    protected List<Annotation> note;
+    protected List<CareConnectAnnotation> note;
     
     @Block()
     public static class ConditionStageComponent extends org.hl7.fhir.dstu3.model.Condition.ConditionStageComponent {
@@ -147,7 +144,7 @@ public class CareConnectCondition extends Condition {
          */
         @Child(
         	name="assessment", 
-        	type={ClinicalImpression.class, DiagnosticReport.class, Observation.class}, // TODO use CareConnectObservation
+        	type={ClinicalImpression.class, DiagnosticReport.class, CareConnectObservation.class}, // TODO use CareConnectObservation
         	order=Child.REPLACE_PARENT, min=0, max=Child.MAX_UNLIMITED, modifier=false, summary=false)
         @Description(
         	shortDefinition="Formal record of assessment", 

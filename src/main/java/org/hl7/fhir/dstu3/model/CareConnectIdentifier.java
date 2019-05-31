@@ -1,6 +1,6 @@
-package datatypes;
+package org.hl7.fhir.dstu3.model;
 
-import datatypes.Identifier;
+import org.hl7.fhir.dstu3.model.CareConnectIdentifier;
 import org.hl7.fhir.dstu3.model.Reference;
 import org.hl7.fhir.dstu3.model.StringType;
 import org.hl7.fhir.dstu3.model.UriType;
@@ -10,11 +10,10 @@ import ca.uhn.fhir.model.api.annotation.Block;
 import ca.uhn.fhir.model.api.annotation.Child;
 import ca.uhn.fhir.model.api.annotation.DatatypeDef;
 import ca.uhn.fhir.model.api.annotation.Description;
-import resources.CareConnectOrganization;
 
 @DatatypeDef(name = "identifier")
 @Block
-public class Identifier extends org.hl7.fhir.dstu3.model.Identifier implements ICompositeType {
+public class CareConnectIdentifier extends Identifier implements ICompositeType {
 
 	private static final long serialVersionUID = 1L;
 
@@ -30,7 +29,7 @@ public class Identifier extends org.hl7.fhir.dstu3.model.Identifier implements I
     protected UriType system;
     
     @Override
-    public Identifier setSystem(String system) {
+    public CareConnectIdentifier setSystem(String system) {
     	this.system = new UriType(system);
     	return this;
     }
@@ -47,7 +46,7 @@ public class Identifier extends org.hl7.fhir.dstu3.model.Identifier implements I
     protected StringType value;
     
     @Override
-    public Identifier setValue(String value) {
+    public CareConnectIdentifier setValue(String value) {
     	this.value = new StringType(value);
     	return this;
     }
@@ -66,7 +65,7 @@ public class Identifier extends org.hl7.fhir.dstu3.model.Identifier implements I
     protected Reference assigner;
     
     @Override
-    public Identifier setAssigner(Reference assigner) {
+    public CareConnectIdentifier setAssigner(Reference assigner) {
     	this.assigner = assigner;
     	return this;
     }

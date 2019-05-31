@@ -1,4 +1,4 @@
-package resources;
+package org.hl7.fhir.dstu3.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,6 @@ import ca.uhn.fhir.model.api.annotation.Description;
 import ca.uhn.fhir.model.api.annotation.Extension;
 import ca.uhn.fhir.model.api.annotation.ResourceDef;
 import ca.uhn.fhir.util.ElementUtil;
-import datatypes.NHSNumberIdentifier;
 
 @ResourceDef(name = "Patient", profile = "https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Patient-1")
 public class CareConnectPatient extends Patient {

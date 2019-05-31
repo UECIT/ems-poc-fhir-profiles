@@ -1,7 +1,7 @@
-package datatypes;
+package org.hl7.fhir.dstu3.model;
 
 import org.hl7.fhir.dstu3.model.CodeableConcept;
-import org.hl7.fhir.dstu3.model.Identifier;
+import org.hl7.fhir.dstu3.model.CareConnectIdentifier;
 import org.hl7.fhir.instance.model.api.ICompositeType;
 
 import ca.uhn.fhir.model.api.annotation.Binding;
@@ -11,7 +11,7 @@ import ca.uhn.fhir.model.api.annotation.Description;
 import ca.uhn.fhir.model.api.annotation.Extension;
 
 @DatatypeDef(name = "identifier")
-public class NHSNumberIdentifier extends Identifier implements ICompositeType {
+public class NHSNumberIdentifier extends CareConnectIdentifier implements ICompositeType {
 	
 	private static final long serialVersionUID = 1L;
 	@Binding(valueSet="https://fhir.hl7.org.uk/STU3/ValueSet/CareConnect-NHSNumberVerificationStatus-1")

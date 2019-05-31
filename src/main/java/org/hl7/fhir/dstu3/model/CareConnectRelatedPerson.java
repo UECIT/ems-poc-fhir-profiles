@@ -1,4 +1,4 @@
-package resources;
+package org.hl7.fhir.dstu3.model;
 
 import java.util.List;
 
@@ -8,7 +8,6 @@ import org.hl7.fhir.dstu3.model.RelatedPerson;
 import ca.uhn.fhir.model.api.annotation.Child;
 import ca.uhn.fhir.model.api.annotation.Description;
 import ca.uhn.fhir.model.api.annotation.ResourceDef;
-import datatypes.Identifier;
 
 @ResourceDef(name="RelatedPerson", profile="https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-RelatedPerson-1")
 public class CareConnectRelatedPerson extends RelatedPerson {
@@ -18,12 +17,12 @@ public class CareConnectRelatedPerson extends RelatedPerson {
 	/**
      * Identifier for a person within a particular scope.
      */
-    @Child(name="identifier", type={Identifier.class}, order=Child.REPLACE_PARENT, min=0, max=Child.MAX_UNLIMITED, modifier=false, summary=true)
+    @Child(name="identifier", type={CareConnectIdentifier.class}, order=Child.REPLACE_PARENT, min=0, max=Child.MAX_UNLIMITED, modifier=false, summary=true)
     @Description(
     	shortDefinition="A human identifier for this person", 
     	formalDefinition="Identifier for a person within a particular scope." 
     )
-    protected List<Identifier> identifier;
+    protected List<CareConnectIdentifier> identifier;
     
     /**
      * The patient this person is related to.

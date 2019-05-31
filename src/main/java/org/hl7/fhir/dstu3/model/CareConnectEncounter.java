@@ -1,4 +1,4 @@
-package resources;
+package org.hl7.fhir.dstu3.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,22 +15,18 @@ import ca.uhn.fhir.model.api.annotation.Child;
 import ca.uhn.fhir.model.api.annotation.Description;
 import ca.uhn.fhir.model.api.annotation.Extension;
 import ca.uhn.fhir.model.api.annotation.ResourceDef;
-import datatypes.Identifier;
 
 @ResourceDef(name = "Encounter", profile = "https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Encounter-1")
 public class CareConnectEncounter extends Encounter {
 
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Identifier(s) by which this encounter is known.
-	 */
 	@Child(name = "identifier", type = {
-			Identifier.class }, order = Child.REPLACE_PARENT, min = 0, max = Child.MAX_UNLIMITED, modifier = false, summary = true)
+			CareConnectIdentifier.class }, order = Child.REPLACE_PARENT, min = 0, max = Child.MAX_UNLIMITED, modifier = false, summary = true)
 	@Description(shortDefinition = "External Ids for this encounter", formalDefinition = "This records identifiers associated with this condition that are defined "
 			+ "by business processes and/or used to refer to it when a direct URL reference to the resource "
 			+ "itself is not appropriate (e.g. in CDA documents, or in written / printed documentation).")
-	protected List<Identifier> identifier;
+	protected List<CareConnectIdentifier> identifier;
 
 	@Child(name = "encounterTransport", order = Child.ORDER_UNKNOWN, min = 0, max = 1, modifier = false, summary = true)
 	@Description(shortDefinition = "Encounter transport")
@@ -184,11 +180,11 @@ public class CareConnectEncounter extends Encounter {
 		protected CodeableConcept dischargeMethod;
 
 		@Child(name = "identifier", type = {
-				Identifier.class }, order = Child.ORDER_UNKNOWN, min = 0, max = Child.MAX_UNLIMITED, modifier = false, summary = true)
+				CareConnectIdentifier.class }, order = Child.ORDER_UNKNOWN, min = 0, max = Child.MAX_UNLIMITED, modifier = false, summary = true)
 		@Description(shortDefinition = "External Id for this admission", formalDefinition = "This records identifiers associated with this condition that are defined "
 				+ "by business processes and/or used to refer to it when a direct URL reference to the resource "
 				+ "itself is not appropriate (e.g. in CDA documents, or in written / printed documentation).")
-		protected Identifier preAdmissionIdentifier;
+		protected CareConnectIdentifier preAdmissionIdentifier;
 
 		/**
 		 * The location from which the patient came before admission.
@@ -240,11 +236,11 @@ public class CareConnectEncounter extends Encounter {
 			this.dischargeMethod = dischargeMethod;
 		}
 
-		public Identifier getPreAdmissionIdentifier() {
+		public CareConnectIdentifier getPreAdmissionIdentifier() {
 			return preAdmissionIdentifier;
 		}
 
-		public void setPreAdmissionIdentifier(Identifier preAdmissionIdentifier) {
+		public void setPreAdmissionIdentifier(CareConnectIdentifier preAdmissionIdentifier) {
 			this.preAdmissionIdentifier = preAdmissionIdentifier;
 		}
 	}

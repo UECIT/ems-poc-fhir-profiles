@@ -1,9 +1,9 @@
-package resources;
+package org.hl7.fhir.dstu3.model;
 
 import java.util.List;
 
 import org.hl7.fhir.dstu3.model.HealthcareService;
-import org.hl7.fhir.dstu3.model.Identifier;
+import org.hl7.fhir.dstu3.model.CareConnectIdentifier;
 
 import ca.uhn.fhir.model.api.annotation.Child;
 import ca.uhn.fhir.model.api.annotation.Description;
@@ -17,10 +17,10 @@ public class CareConnectHealthcareService extends HealthcareService {
     /**
      * External identifiers for this item.
      */
-    @Child(name="identifier", type={Identifier.class}, order=Child.REPLACE_PARENT, min=1, max=1, modifier=false, summary=true)
+    @Child(name="identifier", type={CareConnectIdentifier.class}, order=Child.REPLACE_PARENT, min=1, max=1, modifier=false, summary=true)
     @Description(
     	shortDefinition="External identifiers for this item", 
     	formalDefinition="External identifiers for this item." 
     )
-    protected List<Identifier> identifier;
+    protected List<CareConnectIdentifier> identifier;
 }

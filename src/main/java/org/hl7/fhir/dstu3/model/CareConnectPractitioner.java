@@ -1,4 +1,4 @@
-package resources;
+package org.hl7.fhir.dstu3.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +22,9 @@ public class CareConnectPractitioner extends Practitioner {
 	
 	@Child(name="identifier", order=Child.REPLACE_PARENT, min=0, max=Child.MAX_UNLIMITED, modifier=true, summary=true)
     @Description(shortDefinition="Practitioner identifiers")
-    protected List<datatypes.Identifier> identifier = new ArrayList<>();
+    protected List<org.hl7.fhir.dstu3.model.CareConnectIdentifier> identifier = new ArrayList<>();
 	
-	public Practitioner addIdentifier(datatypes.Identifier identifier) {
+	public Practitioner addIdentifier(org.hl7.fhir.dstu3.model.CareConnectIdentifier identifier) {
 		this.identifier.add(identifier);
 		return this;
 	}

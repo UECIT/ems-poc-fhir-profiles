@@ -1,4 +1,4 @@
-package datatypes;
+package org.hl7.fhir.dstu3.model;
 
 import org.hl7.fhir.dstu3.model.DateTimeType;
 import org.hl7.fhir.dstu3.model.DateType;

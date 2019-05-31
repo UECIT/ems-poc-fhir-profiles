@@ -1,13 +1,11 @@
-package resources;
+package org.hl7.fhir.dstu3.model;
 
 import java.util.List;
 
 import org.hl7.fhir.dstu3.model.CodeableConcept;
 import org.hl7.fhir.dstu3.model.Device;
 import org.hl7.fhir.dstu3.model.Group;
-import org.hl7.fhir.dstu3.model.Medication;
 import org.hl7.fhir.dstu3.model.MedicationAdministration;
-import org.hl7.fhir.dstu3.model.Observation;
 import org.hl7.fhir.dstu3.model.Procedure;
 import org.hl7.fhir.dstu3.model.Reference;
 import org.hl7.fhir.dstu3.model.Substance;
@@ -17,8 +15,6 @@ import ca.uhn.fhir.model.api.annotation.Child;
 import ca.uhn.fhir.model.api.annotation.Description;
 import ca.uhn.fhir.model.api.annotation.Extension;
 import ca.uhn.fhir.model.api.annotation.ResourceDef;
-import datatypes.Annotation;
-import datatypes.Identifier;
 
 @ResourceDef(name="Procedure", profile="https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Procedure-1")
 public class CareConnectProcedure extends Procedure {
@@ -31,14 +27,14 @@ public class CareConnectProcedure extends Procedure {
 	)
     @Description(shortDefinition="Anaesthetic issues")
 	@Extension(url="https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-AnaestheticIssues-1", definedLocally=false, isModifier=false)
-    protected Extension anaestheticIssues;
+    protected org.hl7.fhir.dstu3.model.Extension anaestheticIssues;
 
     /**
      * This records identifiers associated with this procedure that are defined by business processes 
      * and/or used to refer to it when a direct URL reference to the resource itself is not appropriate 
      * (e.g. in CDA documents, or in written / printed documentation).
      */
-    @Child(name="identifier", type={Identifier.class}, order=Child.REPLACE_PARENT, min=0, max=Child.MAX_UNLIMITED, modifier=false, summary=true)
+    @Child(name="identifier", type={CareConnectIdentifier.class}, order=Child.REPLACE_PARENT, min=0, max=Child.MAX_UNLIMITED, modifier=false, summary=true)
     @Description(
     	shortDefinition="External Identifiers for this procedure", 
     	formalDefinition=
@@ -46,13 +42,13 @@ public class CareConnectProcedure extends Procedure {
     		"business processes and/or used to refer to it when a direct URL reference to the " +
     		"resource itself is not appropriate (e.g. in CDA documents, or in written / printed documentation)." 
     )
-    protected List<Identifier> identifier;
+    protected List<CareConnectIdentifier> identifier;
     
     /**
      * A larger event of which this particular procedure is a component or step.
      */
     @Child(
-    	name="partOf", type={CareConnectProcedure.class, Observation.class, MedicationAdministration.class}, 
+    	name="partOf", type={CareConnectProcedure.class, CareConnectObservation.class, MedicationAdministration.class}, 
     	order=Child.REPLACE_PARENT, min=0, max=Child.MAX_UNLIMITED, modifier=false, summary=true
     )
     @Description(//TODO Use CareConnectObservation
@@ -113,7 +109,7 @@ public class CareConnectProcedure extends Procedure {
      * The condition that is the reason why the procedure was performed.
      */
     @Child(
-    	name="reasonReference", type={CareConnectCondition.class, Observation.class}, //TODO Use CareConnectObservation
+    	name="reasonReference", type={CareConnectCondition.class, CareConnectObservation.class}, //TODO Use CareConnectObservation
     	order=Child.REPLACE_PARENT, min=0, max=Child.MAX_UNLIMITED, modifier=false, summary=true
     )
     @Description(
@@ -137,18 +133,18 @@ public class CareConnectProcedure extends Procedure {
     /**
      * Any other notes about the procedure.  E.g. the operative notes.
      */
-    @Child(name="note", type={Annotation.class}, order=Child.REPLACE_PARENT, min=0, max=Child.MAX_UNLIMITED, modifier=false, summary=false)
+    @Child(name="note", type={CareConnectAnnotation.class}, order=Child.REPLACE_PARENT, min=0, max=Child.MAX_UNLIMITED, modifier=false, summary=false)
     @Description(
     	shortDefinition="Additional information about the procedure", 
     	formalDefinition="Any other notes about the procedure.  E.g. the operative notes." 
     )
-    protected List<Annotation> note;
+    protected List<CareConnectAnnotation> note;
     
     /**
      * Identifies medications, devices and any other substance used as part of the procedure.
      */
     @Child(
-    	name="usedReference", type={Device.class, Medication.class, Substance.class}, 
+    	name="usedReference", type={Device.class, CareConnectMedication.class, Substance.class}, 
     	order=Child.REPLACE_PARENT, min=0, max=Child.MAX_UNLIMITED, modifier=false, summary=false
     )
     @Description( //TODO Use CareConnectMedication
