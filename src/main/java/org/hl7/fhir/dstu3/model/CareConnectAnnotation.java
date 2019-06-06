@@ -24,4 +24,12 @@ public class CareConnectAnnotation extends Annotation {
     	formalDefinition="The individual responsible for making the annotation." 
     )
     protected Type author;
+    
+    public CareConnectAnnotation() {
+    	super();
+    }
+    
+    public CareConnectAnnotation(StringType text) {
+    	super(text);
+    }
 }

@@ -1,5 +1,6 @@
 package org.hl7.fhir.dstu3.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hl7.fhir.dstu3.model.Appointment;
@@ -72,8 +73,17 @@ public class CareConnectCarePlan extends CarePlan {
 
 	@Child(name = "activity", type = {}, order = Child.REPLACE_PARENT, min = 0, max = Child.MAX_UNLIMITED, modifier = false, summary = false)
 	@Description(shortDefinition = "Action to occur as part of plan", formalDefinition = "Identifies a planned action to occur as part of the plan.  For example, a medication to be used, lab tests to perform, self-monitoring, education, etc.")
-	protected List<CarePlan.CarePlanActivityComponent> activity;
+	protected List<CarePlan.CarePlanActivityComponent> activity = new ArrayList<>();
 
+	
+	public List<CarePlan.CarePlanActivityComponent> getActivity() {
+		List<CarePlan.CarePlanActivityComponent> combinedList = new ArrayList<>();
+		combinedList.addAll(activity);
+		combinedList.addAll(super.getActivity());
+		
+		return combinedList;
+	}
+	
 	@Block()
 	public static class CarePlanActivityComponent extends org.hl7.fhir.dstu3.model.CarePlan.CarePlanActivityComponent {
 
