@@ -2,17 +2,10 @@ package org.hl7.fhir.dstu3.model;
 
 import java.util.List;
 
-import org.hl7.fhir.dstu3.model.CodeableConcept;
-import org.hl7.fhir.dstu3.model.Medication;
-import org.hl7.fhir.dstu3.model.Reference;
-import org.hl7.fhir.dstu3.model.Substance;
-import org.hl7.fhir.dstu3.model.Type;
-
 import ca.uhn.fhir.model.api.annotation.Binding;
 import ca.uhn.fhir.model.api.annotation.Block;
 import ca.uhn.fhir.model.api.annotation.Child;
 import ca.uhn.fhir.model.api.annotation.Description;
-import ca.uhn.fhir.model.api.annotation.Extension;
 import ca.uhn.fhir.model.api.annotation.ResourceDef;
 
 @ResourceDef(name="Medication", profile="https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Medication-1")
