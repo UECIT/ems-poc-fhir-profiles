@@ -1,15 +1,5 @@
 package org.hl7.fhir.dstu3.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.hl7.fhir.dstu3.model.Address;
-import org.hl7.fhir.dstu3.model.BackboneElement;
-import org.hl7.fhir.dstu3.model.BooleanType;
-import org.hl7.fhir.dstu3.model.CodeableConcept;
-import org.hl7.fhir.dstu3.model.Patient;
-import org.hl7.fhir.dstu3.model.Reference;
-
 import ca.uhn.fhir.model.api.annotation.Binding;
 import ca.uhn.fhir.model.api.annotation.Block;
 import ca.uhn.fhir.model.api.annotation.Child;
@@ -17,6 +7,8 @@ import ca.uhn.fhir.model.api.annotation.Description;
 import ca.uhn.fhir.model.api.annotation.Extension;
 import ca.uhn.fhir.model.api.annotation.ResourceDef;
 import ca.uhn.fhir.util.ElementUtil;
+import java.util.ArrayList;
+import java.util.List;
 
 @ResourceDef(name = "Patient", profile = "https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Patient-1")
 public class CareConnectPatient extends Patient {
@@ -175,7 +167,7 @@ public class CareConnectPatient extends Patient {
 	// TODO EXTENSION WITH EXTENSIONS - figure out how to define.
 	@Child(name = "deathNotificationStatus")
 	@Extension(url = "https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-DeathNotificationStatus-1", definedLocally = false, isModifier = false)
-	@Description(shortDefinition = "This extension is constrained to represent a patient’s death notification "
+	@Description(shortDefinition = "This extension is constrained to represent a patient's death notification "
 			+ "(as held on Personal Demographics Service (PDS)).")
 	private DeathNotificationStatusExtension deathNotificationStatus;
 
