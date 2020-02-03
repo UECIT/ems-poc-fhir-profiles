@@ -13,135 +13,224 @@ import java.util.List;
 @ResourceDef(name = "Patient", profile = "https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Patient-1")
 public class CareConnectPatient extends Patient {
 
-	private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = -1894418594217458769L;
 
-	@Child(name = "identifier", type = {
-			NHSNumberIdentifier.class }, order = Child.REPLACE_PARENT, min = 0, max = Child.MAX_UNLIMITED, modifier = false, summary = true)
-	@Description(shortDefinition = "An identifier for this patient", formalDefinition = "An identifier for this patient.")
-	protected List<NHSNumberIdentifier> identifier = new ArrayList<>();
+  @Child(name = "identifier", type = {
+      NHSNumberIdentifier.class}, order = Child.REPLACE_PARENT, min = 0, max = Child.MAX_UNLIMITED, modifier = false, summary = true)
+  @Description(shortDefinition = "An identifier for this patient", formalDefinition = "An identifier for this patient.")
+  protected List<NHSNumberIdentifier> identifier = new ArrayList<>();
 
-	public Patient addIdentifier(NHSNumberIdentifier identifier) {
-		this.identifier.add(identifier);
-		return super.addIdentifier(identifier);
-	}
+  /**
+   * @param value MUST be list of type {@link NHSNumberIdentifier}
+   */
+  @Override
+  public CareConnectPatient setIdentifier(List<Identifier> value) {
+    this.identifier = new ArrayList<>();
+    for (Identifier i : value) {
+      this.identifier.add((NHSNumberIdentifier) i);
+    }
+    super.setIdentifier(value);
+    return this;
+  }
 
-	public NHSNumberIdentifier getIdentifierFirstRep() {
-		return identifier.get(0);
-	}
+  /**
+   * @param value MUST be of type {@link NHSNumberIdentifier}
+   */
+  @Override
+  public CareConnectPatient addIdentifier(Identifier value) {
+    this.identifier.add((NHSNumberIdentifier) value);
+    super.addIdentifier(value);
+    return this;
+  }
 
-	@Child(name = "ethnicCategory")
-	@Extension(url = "https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-EthnicCategory-1", definedLocally = false, isModifier = false)
-	@Description(shortDefinition = "This extension is constrained to represent the ethnic category for a patient")
-	private CodeableConcept ethnicCategory;
+  @Override
+  public NHSNumberIdentifier addIdentifier() {
+    NHSNumberIdentifier identifier = new NHSNumberIdentifier();
+    this.identifier.add(identifier);
+    super.addIdentifier(identifier);
+    return identifier;
+  }
 
-	@Child(name = "religiousAffiliation")
-	@Extension(url = "https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-ReligiousAffiliation-1", definedLocally = false, isModifier = false)
-	@Description(shortDefinition = "This extension is constrained to represent the religious affiliation for a patient.")
-	private CodeableConcept religiousAffiliation;
+  @Override
+  public NHSNumberIdentifier getIdentifierFirstRep() {
+    if (getIdentifier().isEmpty()) {
+      addIdentifier();
+    }
+    return identifier.get(0);
+  }
 
-	@Child(name = "patient-cadavericDonor")
-	@Extension(url = "http://hl7.org/fhir/StructureDefinition/patient-cadavericDonor", definedLocally = false, isModifier = false)
-	@Description(shortDefinition = "Flag indicating whether the patient authorized the donation of body parts after death.")
-	private BooleanType cadavericDonor;
+  @Child(name = "ethnicCategory")
+  @Extension(url = "https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-EthnicCategory-1", definedLocally = false, isModifier = false)
+  @Description(shortDefinition = "This extension is constrained to represent the ethnic category for a patient")
+  protected CodeableConcept ethnicCategory;
 
-	@Child(name = "residentialStatus")
-	@Extension(url = "https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-ResidentialStatus-1", definedLocally = false, isModifier = false)
-	@Description(shortDefinition = "This extension is constrained to represent the residential status for a patient.")
-	private CodeableConcept residentialStatus;
+  public CodeableConcept getEthnicCategory() {
+    return ethnicCategory;
+  }
 
-	@Child(name = "treatmentCategory")
-	@Extension(url = "https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-TreatmentCategory-1", definedLocally = false, isModifier = false)
-	@Description(shortDefinition = "This extension is constrained to represent the treatment category for a patient.")
-	private CodeableConcept treatmentCategory;
+  public CareConnectPatient setEthnicCategory(CodeableConcept ethnicCategory) {
+    this.ethnicCategory = ethnicCategory;
+    return this;
+  }
 
-	@Child(name = "nhsCommunication")
-	@Extension(url = "https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-NHSCommunication-1", definedLocally = false, isModifier = false)
-	@Description(shortDefinition = "This extension is constrained to support the communication preferences for a resource in the NHS.")
-	private NhsCommunicationExtension nhsCommunication;
+  @Child(name = "religiousAffiliation")
+  @Extension(url = "https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-ReligiousAffiliation-1", definedLocally = false, isModifier = false)
+  @Description(shortDefinition = "This extension is constrained to represent the religious affiliation for a patient.")
+  protected CodeableConcept religiousAffiliation;
 
-	@Block
-	public static class NhsCommunicationExtension extends BackboneElement {
+  public CodeableConcept getReligiousAffiliation() {
+    return religiousAffiliation;
+  }
 
-		private static final long serialVersionUID = 2L;
+  public CareConnectPatient setReligiousAffiliation(CodeableConcept religiousAffiliation) {
+    this.religiousAffiliation = religiousAffiliation;
+    return this;
+  }
 
-		@Child(name = "language")
-		private org.hl7.fhir.dstu3.model.Extension language;
+  @Child(name = "patient-cadavericDonor")
+  @Extension(url = "http://hl7.org/fhir/StructureDefinition/patient-cadavericDonor", definedLocally = false, isModifier = false)
+  @Description(shortDefinition = "Flag indicating whether the patient authorized the donation of body parts after death.")
+  protected BooleanType cadavericDonor;
 
-		@Child(name = "preferred")
-		private org.hl7.fhir.dstu3.model.Extension preferred;
+  public boolean getCadavericDonor() {
+    return cadavericDonor != null && cadavericDonor.booleanValue();
+  }
 
-		@Child(name = "modeOfCommunication")
-		private org.hl7.fhir.dstu3.model.Extension modeOfCommunication;
+  public BooleanType getCadavericDonorElement() {
+    return cadavericDonor;
+  }
 
-		@Child(name = "communicationProficiency")
-		private org.hl7.fhir.dstu3.model.Extension communicationProficiency;
+  public CareConnectPatient setCadavericDonorElement(BooleanType cadavericDonor) {
+    this.cadavericDonor = cadavericDonor;
+    return this;
+  }
 
-		@Child(name = "interpreterRequired")
-		private org.hl7.fhir.dstu3.model.Extension interpreterRequired;
+  public CareConnectPatient setCadavericDonor(boolean cadavericDonor) {
+    this.cadavericDonor = new BooleanType(cadavericDonor);
+    return this;
+  }
 
-		@Override
-		public BackboneElement copy() {
-			NhsCommunicationExtension copy = new NhsCommunicationExtension();
-			copy.language = language;
-			copy.preferred = preferred;
-			copy.modeOfCommunication = modeOfCommunication;
-			copy.communicationProficiency = communicationProficiency;
-			copy.interpreterRequired = interpreterRequired;
-			return copy;
-		}
+  @Child(name = "residentialStatus")
+  @Extension(url = "https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-ResidentialStatus-1", definedLocally = false, isModifier = false)
+  @Description(shortDefinition = "This extension is constrained to represent the residential status for a patient.")
+  protected CodeableConcept residentialStatus;
 
-		@Override
-		public boolean isEmpty() {
-			return super.isEmpty() && ElementUtil.isEmpty(language, preferred, modeOfCommunication,
-					communicationProficiency, interpreterRequired);
-		}
+  public CodeableConcept getResidentialStatus() {
+    return residentialStatus;
+  }
 
-		// Getters and Setters
-		public org.hl7.fhir.dstu3.model.Extension getLanguage() {
-			return language;
-		}
+  public CareConnectPatient setResidentialStatus(CodeableConcept residentialStatus) {
+    this.residentialStatus = residentialStatus;
+    return this;
+  }
 
-		public void setLanguage(org.hl7.fhir.dstu3.model.Extension language) {
-			this.language = language;
-		}
+  @Child(name = "treatmentCategory")
+  @Extension(url = "https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-TreatmentCategory-1", definedLocally = false, isModifier = false)
+  @Description(shortDefinition = "This extension is constrained to represent the treatment category for a patient.")
+  protected CodeableConcept treatmentCategory;
 
-		public org.hl7.fhir.dstu3.model.Extension getPreferred() {
-			return preferred;
-		}
+  public CodeableConcept getTreatmentCategory() {
+    return treatmentCategory;
+  }
 
-		public void setPreferred(org.hl7.fhir.dstu3.model.Extension preferred) {
-			this.preferred = preferred;
-		}
+  public CareConnectPatient setTreatmentCategory(CodeableConcept treatmentCategory) {
+    this.treatmentCategory = treatmentCategory;
+    return this;
+  }
 
-		public org.hl7.fhir.dstu3.model.Extension getModeOfCommunication() {
-			return modeOfCommunication;
-		}
+  @Child(name = "nhsCommunication")
+  @Extension(url = "https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-NHSCommunication-1", definedLocally = false, isModifier = false)
+  @Description(shortDefinition = "This extension is constrained to support the communication preferences for a resource in the NHS.")
+  protected NhsCommunicationExtension nhsCommunication;
 
-		public void setModeOfCommunication(org.hl7.fhir.dstu3.model.Extension modeOfCommunication) {
-			this.modeOfCommunication = modeOfCommunication;
-		}
+  @Block
+  public static class NhsCommunicationExtension extends BackboneElement {
 
-		public org.hl7.fhir.dstu3.model.Extension getCommunicationProficiency() {
-			return communicationProficiency;
-		}
+    private static final long serialVersionUID = -1901148205804751417L;
 
-		public void setCommunicationProficiency(org.hl7.fhir.dstu3.model.Extension communicationProficiency) {
-			this.communicationProficiency = communicationProficiency;
-		}
+    @Child(name = "language")
+    protected org.hl7.fhir.dstu3.model.Extension language;
 
-		public org.hl7.fhir.dstu3.model.Extension getInterpreterRequired() {
-			return interpreterRequired;
-		}
+    public org.hl7.fhir.dstu3.model.Extension getLanguage() {
+      return language;
+    }
 
-		public void setInterpreterRequired(org.hl7.fhir.dstu3.model.Extension interpreterRequired) {
-			this.interpreterRequired = interpreterRequired;
-		}
+    public void setLanguage(org.hl7.fhir.dstu3.model.Extension language) {
+      this.language = language;
+    }
 
-		public static long getSerialversionuid() {
-			return serialVersionUID;
-		}
+    @Child(name = "preferred")
+    protected org.hl7.fhir.dstu3.model.Extension preferred;
 
-	}
+    public org.hl7.fhir.dstu3.model.Extension getPreferred() {
+      return preferred;
+    }
+
+    public void setPreferred(org.hl7.fhir.dstu3.model.Extension preferred) {
+      this.preferred = preferred;
+    }
+
+    @Child(name = "modeOfCommunication")
+    protected org.hl7.fhir.dstu3.model.Extension modeOfCommunication;
+
+    public org.hl7.fhir.dstu3.model.Extension getModeOfCommunication() {
+      return modeOfCommunication;
+    }
+
+    public void setModeOfCommunication(org.hl7.fhir.dstu3.model.Extension modeOfCommunication) {
+      this.modeOfCommunication = modeOfCommunication;
+    }
+
+    @Child(name = "communicationProficiency")
+    protected org.hl7.fhir.dstu3.model.Extension communicationProficiency;
+
+    public org.hl7.fhir.dstu3.model.Extension getCommunicationProficiency() {
+      return communicationProficiency;
+    }
+
+    public void setCommunicationProficiency(
+        org.hl7.fhir.dstu3.model.Extension communicationProficiency) {
+      this.communicationProficiency = communicationProficiency;
+    }
+
+    @Child(name = "interpreterRequired")
+    protected org.hl7.fhir.dstu3.model.Extension interpreterRequired;
+
+    public org.hl7.fhir.dstu3.model.Extension getInterpreterRequired() {
+      return interpreterRequired;
+    }
+
+    public void setInterpreterRequired(org.hl7.fhir.dstu3.model.Extension interpreterRequired) {
+      this.interpreterRequired = interpreterRequired;
+    }
+
+    @Override
+    public BackboneElement copy() {
+      NhsCommunicationExtension copy = new NhsCommunicationExtension();
+      copy.language = language;
+      copy.preferred = preferred;
+      copy.modeOfCommunication = modeOfCommunication;
+      copy.communicationProficiency = communicationProficiency;
+      copy.interpreterRequired = interpreterRequired;
+      return copy;
+    }
+
+    @Override
+    public boolean isEmpty() {
+      return super.isEmpty() && ElementUtil.isEmpty(language, preferred, modeOfCommunication,
+          communicationProficiency, interpreterRequired);
+    }
+
+  }
+
+  public NhsCommunicationExtension getNhsCommunication() {
+    return nhsCommunication;
+  }
+
+  public CareConnectPatient setNhsCommunication(NhsCommunicationExtension nhsCommunication) {
+    this.nhsCommunication = nhsCommunication;
+    return this;
+  }
 
 //	@Child(name = "birthDate", type = {BirthDateType.class}, order=Child.REPLACE_PARENT, min=0, max=1, modifier=false, summary=true)
 //    @Description(shortDefinition="The date of birth for the individual", formalDefinition="The date of birth for the individual." )
@@ -152,176 +241,165 @@ public class CareConnectPatient extends Patient {
 //        return this;
 //    }
 
-	@Child(name = "birthPlace")
-	@Extension(url = "http://hl7.org/fhir/StructureDefinition/birthPlace", definedLocally = false, isModifier = false)
-	@Description(shortDefinition = "The registered place of birth of the patient. A sytem may use "
-			+ "the address.text if they don't store the birthPlace address in discrete elements.")
-	private Address birthPlace;
+  @Child(name = "birthPlace")
+  @Extension(url = "http://hl7.org/fhir/StructureDefinition/birthPlace", definedLocally = false, isModifier = false)
+  @Description(shortDefinition = "The registered place of birth of the patient. A sytem may use "
+      + "the address.text if they don't store the birthPlace address in discrete elements.")
+  protected Address birthPlace;
 
-	// TODO REFERENCETYPE - figure out how to represent/constrain this.
-	@Child(name = "nominatedPharmacy")
-	@Extension(url = "https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-NominatedPharmacy-1", definedLocally = false, isModifier = false)
-	@Description(shortDefinition = "This extension is constrained to represent a patient's nominated pharmacy.")
-	private Reference nominatedPharmacy;
+  public Address getBirthPlace() {
+    return birthPlace;
+  }
 
-	// TODO EXTENSION WITH EXTENSIONS - figure out how to define.
-	@Child(name = "deathNotificationStatus")
-	@Extension(url = "https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-DeathNotificationStatus-1", definedLocally = false, isModifier = false)
-	@Description(shortDefinition = "This extension is constrained to represent a patient's death notification "
-			+ "(as held on Personal Demographics Service (PDS)).")
-	private DeathNotificationStatusExtension deathNotificationStatus;
+  public CareConnectPatient setBirthPlace(Address birthPlace) {
+    this.birthPlace = birthPlace;
+    return this;
+  }
 
-	@Block
-	public static class DeathNotificationStatusExtension extends BackboneElement {
+  // TODO REFERENCETYPE - figure out how to represent/constrain this.
+  @Child(name = "nominatedPharmacy")
+  @Extension(url = "https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-NominatedPharmacy-1", definedLocally = false, isModifier = false)
+  @Description(shortDefinition = "This extension is constrained to represent a patient's nominated pharmacy.")
+  protected Reference nominatedPharmacy;
 
-		private static final long serialVersionUID = 3L;
+  public Reference getNominatedPharmacy() {
+    return nominatedPharmacy;
+  }
 
-		@Child(name = "deathNotificationStatus")
-		@Binding(valueSet = "https://fhir.hl7.org.uk/STU3/ValueSet/CareConnect-DeathNotificationStatus-1")
-		private CodeableConcept deathNotificationStatus;
+  public CareConnectPatient setNominatedPharmacy(Reference nominatedPharmacy) {
+    this.nominatedPharmacy = nominatedPharmacy;
+    return this;
+  }
 
-		@Child(name = "systemEffectiveDate")
-		private BooleanType systemEffectiveDate;
+  // TODO EXTENSION WITH EXTENSIONS - figure out how to define.
+  @Child(name = "deathNotificationStatus")
+  @Extension(url = "https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-DeathNotificationStatus-1", definedLocally = false, isModifier = false)
+  @Description(shortDefinition =
+      "This extension is constrained to represent a patient's death notification "
+          + "(as held on Personal Demographics Service (PDS)).")
+  protected DeathNotificationStatusExtension deathNotificationStatus;
 
-		@Override
-		public BackboneElement copy() {
-			DeathNotificationStatusExtension copy = new DeathNotificationStatusExtension();
-			copy.deathNotificationStatus = deathNotificationStatus;
-			copy.systemEffectiveDate = systemEffectiveDate;
-			return copy;
-		}
+  @Block
+  public static class DeathNotificationStatusExtension extends BackboneElement {
 
-		@Override
-		public boolean isEmpty() {
-			return super.isEmpty() && ElementUtil.isEmpty(deathNotificationStatus, systemEffectiveDate);
-		}
+    private static final long serialVersionUID = -5850933372453434264L;
 
-		// Getters and setters
-		public CodeableConcept getDeathNotificationStatus() {
-			return deathNotificationStatus;
-		}
+    @Child(name = "deathNotificationStatus")
+    @Binding(valueSet = "https://fhir.hl7.org.uk/STU3/ValueSet/CareConnect-DeathNotificationStatus-1")
+    protected CodeableConcept deathNotificationStatus;
 
-		public void setDeathNotificationStatus(CodeableConcept deathNotificationStatus) {
-			this.deathNotificationStatus = deathNotificationStatus;
-		}
+    public CodeableConcept getDeathNotificationStatus() {
+      return deathNotificationStatus;
+    }
 
-		public BooleanType getSystemEffectiveDate() {
-			return systemEffectiveDate;
-		}
+    public DeathNotificationStatusExtension setDeathNotificationStatus(
+        CodeableConcept deathNotificationStatus) {
+      this.deathNotificationStatus = deathNotificationStatus;
+      return this;
+    }
 
-		public void setSystemEffectiveDate(BooleanType systemEffectiveDate) {
-			this.systemEffectiveDate = systemEffectiveDate;
-		}
+    @Child(name = "systemEffectiveDate")
+    protected BooleanType systemEffectiveDate;
 
-		public static long getSerialversionuid() {
-			return serialVersionUID;
-		}
+    public BooleanType getSystemEffectiveDate() {
+      return systemEffectiveDate;
+    }
 
-	}
+    public DeathNotificationStatusExtension setSystemEffectiveDate(
+        BooleanType systemEffectiveDate) {
+      this.systemEffectiveDate = systemEffectiveDate;
+      return this;
+    }
 
-	@Child(name = "generalPractitioner", type = { CareConnectOrganization.class,
-			CareConnectPractitioner.class }, order = Child.REPLACE_PARENT, min = 0, max = Child.MAX_UNLIMITED, modifier = false, summary = false)
-	@Description(shortDefinition = "Patient's nominated primary care provider", formalDefinition = "Patient's nominated primary care provider.")
-	protected List<Reference> generalPractitioner = new ArrayList<>();
+    @Override
+    public BackboneElement copy() {
+      DeathNotificationStatusExtension copy = new DeathNotificationStatusExtension();
+      copy.deathNotificationStatus = deathNotificationStatus;
+      copy.systemEffectiveDate = systemEffectiveDate;
+      return copy;
+    }
 
-	@Override
-	public List<Reference> getGeneralPractitioner() {
-		return generalPractitioner;
-	}
+    @Override
+    public boolean isEmpty() {
+      return super.isEmpty() && ElementUtil.isEmpty(deathNotificationStatus, systemEffectiveDate);
+    }
 
-	@Override
-	public Patient addGeneralPractitioner(Reference reference) {
-		generalPractitioner.add(reference);
-		return super.addGeneralPractitioner(reference);
-	}
+  }
 
-	@Child(name = "managingOrganization", type = {
-			CareConnectOrganization.class }, order = Child.REPLACE_PARENT, min = 0, max = 1, modifier = false, summary = true)
-	@Description(shortDefinition = "Organization that is the custodian of the patient record", formalDefinition = "Organization that is the custodian of the patient record.")
-	protected Reference managingOrganization;
+  public DeathNotificationStatusExtension getDeathNotificationStatus() {
+    return deathNotificationStatus;
+  }
 
-	// Getters and setters
-	public CodeableConcept getEthnicCategory() {
-		return ethnicCategory;
-	}
+  public CareConnectPatient setDeathNotificationStatus(
+      DeathNotificationStatusExtension deathNotificationStatus) {
+    this.deathNotificationStatus = deathNotificationStatus;
+    return this;
+  }
 
-	public void setEthnicCategory(CodeableConcept ethnicCategory) {
-		this.ethnicCategory = ethnicCategory;
-	}
+  @Child(name = "generalPractitioner", type = {CareConnectOrganization.class,
+      CareConnectPractitioner.class}, order = Child.REPLACE_PARENT, min = 0, max = Child.MAX_UNLIMITED, modifier = false, summary = false)
+  @Description(shortDefinition = "Patient's nominated primary care provider", formalDefinition = "Patient's nominated primary care provider.")
+  protected List<Reference> generalPractitioner = new ArrayList<>();
 
-	public CodeableConcept getReligiousAffiliation() {
-		return religiousAffiliation;
-	}
+  @Override
+  public List<Reference> getGeneralPractitioner() {
+    return generalPractitioner;
+  }
 
-	public void setReligiousAffiliation(CodeableConcept religiousAffiliation) {
-		this.religiousAffiliation = religiousAffiliation;
-	}
+  @Override
+  public CareConnectPatient addGeneralPractitioner(Reference reference) {
+    generalPractitioner.add(reference);
+    super.addGeneralPractitioner(reference);
+    return this;
+  }
 
-	public BooleanType getCadavericDonor() {
-		return cadavericDonor;
-	}
+  @Override
+  public Reference addGeneralPractitioner() {
+    Reference reference = new Reference();
+    generalPractitioner.add(reference);
+    super.addGeneralPractitioner(reference);
+    return reference;
+  }
 
-	public void setCadavericDonor(BooleanType cadavericDonor) {
-		this.cadavericDonor = cadavericDonor;
-	}
+  @Override
+  public CareConnectPatient setGeneralPractitioner(List<Reference> value) {
+    generalPractitioner = new ArrayList<>(value);
+    super.setGeneralPractitioner(value);
+    return this;
+  }
 
-	public CodeableConcept getResidentialStatus() {
-		return residentialStatus;
-	}
+  @Override
+  public Reference getGeneralPractitionerFirstRep() {
+    if (getGeneralPractitioner().isEmpty()) {
+      addGeneralPractitioner();
+    }
+    return getGeneralPractitioner().get(0);
+  }
 
-	public void setResidentialStatus(CodeableConcept residentialStatus) {
-		this.residentialStatus = residentialStatus;
-	}
+  @Child(name = "managingOrganization", type = {
+      CareConnectOrganization.class}, order = Child.REPLACE_PARENT, min = 0, max = 1, modifier = false, summary = true)
+  @Description(shortDefinition = "Organization that is the custodian of the patient record", formalDefinition = "Organization that is the custodian of the patient record.")
+  protected Reference managingOrganization;
 
-	public CodeableConcept getTreatmentCategory() {
-		return treatmentCategory;
-	}
+  @Override
+  public Reference getManagingOrganization() {
+    return managingOrganization;
+  }
 
-	public void setTreatmentCategory(CodeableConcept treatmentCategory) {
-		this.treatmentCategory = treatmentCategory;
-	}
+  @Override
+  public CareConnectPatient setManagingOrganization(Reference reference) {
+    managingOrganization = reference;
+    super.setManagingOrganization(reference);
+    return this;
+  }
 
-	public NhsCommunicationExtension getNhsCommunication() {
-		return nhsCommunication;
-	}
-
-	public void setNhsCommunication(NhsCommunicationExtension nhsCommunication) {
-		this.nhsCommunication = nhsCommunication;
-	}
-
-	public Address getBirthPlace() {
-		return birthPlace;
-	}
-
-	public void setBirthPlace(Address birthPlace) {
-		this.birthPlace = birthPlace;
-	}
-
-	public Reference getNominatedPharmacy() {
-		return nominatedPharmacy;
-	}
-
-	public void setNominatedPharmacy(Reference nominatedPharmacy) {
-		this.nominatedPharmacy = nominatedPharmacy;
-	}
-
-	public DeathNotificationStatusExtension getDeathNotificationStatus() {
-		return deathNotificationStatus;
-	}
-
-	public void setDeathNotificationStatus(DeathNotificationStatusExtension deathNotificationStatus) {
-		this.deathNotificationStatus = deathNotificationStatus;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	@Override
-	public boolean isEmpty() {
-		return super.isEmpty()
-				&& ElementUtil.isEmpty(ethnicCategory, religiousAffiliation, cadavericDonor, residentialStatus,
-						treatmentCategory, nhsCommunication, birthPlace, nominatedPharmacy, deathNotificationStatus);
-	}
+  @Override
+  public boolean isEmpty() {
+    return super.isEmpty()
+        && ElementUtil
+        .isEmpty(ethnicCategory, religiousAffiliation, cadavericDonor, residentialStatus,
+            treatmentCategory, nhsCommunication, birthPlace, nominatedPharmacy,
+            deathNotificationStatus);
+  }
 
 }
