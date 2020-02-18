@@ -53,14 +53,14 @@ public class CareConnectIdentifier extends Identifier implements ICompositeType 
   @Override
   public CareConnectIdentifier setValue(String value) {
     this.value = new StringType(value);
-    super.setValueElement(this.value);
+    super.setValue(value);
     return this;
   }
 
   @Override
   public CareConnectIdentifier setValueElement(StringType value) {
     this.value = value;
-    super.setValueElement(value);
+    super.value = value;
     return this;
   }
 
