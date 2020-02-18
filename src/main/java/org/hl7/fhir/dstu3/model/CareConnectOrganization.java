@@ -6,12 +6,20 @@ import ca.uhn.fhir.model.api.annotation.Extension;
 import ca.uhn.fhir.model.api.annotation.ResourceDef;
 import ca.uhn.fhir.util.ElementUtil;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-@ResourceDef(name = "Organization", profile = "https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Organization-1")
+@ResourceDef(name = "Organization", profile = CareConnectOrganization.PROFILE)
 public class CareConnectOrganization extends Organization {
 
   private static final long serialVersionUID = 2984414333509227661L;
+
+  static final String PROFILE = "https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Organization-1";
+
+  public CareConnectOrganization() {
+    super();
+    this.setMeta(new Meta().addProfile(PROFILE));
+  }
 
   @Child(name = "identifier", type = {
       CareConnectIdentifier.class}, order = Child.REPLACE_PARENT, min = 0, max = Child.MAX_UNLIMITED, modifier = false, summary = true)
@@ -32,7 +40,6 @@ public class CareConnectOrganization extends Organization {
     for (Identifier i : value) {
       this.identifier.add((CareConnectIdentifier) i);
     }
-    super.setIdentifier(value);
     return this;
   }
 
@@ -40,7 +47,6 @@ public class CareConnectOrganization extends Organization {
   public CareConnectIdentifier addIdentifier() {
     CareConnectIdentifier identifier = new CareConnectIdentifier();
     this.identifier.add(identifier);
-    super.addIdentifier(identifier);
     return identifier;
   }
 
@@ -50,7 +56,6 @@ public class CareConnectOrganization extends Organization {
   @Override
   public CareConnectOrganization addIdentifier(Identifier value) {
     this.identifier.add((CareConnectIdentifier) value);
-    super.addIdentifier(value);
     return this;
   }
 
@@ -60,6 +65,11 @@ public class CareConnectOrganization extends Organization {
       addIdentifier();
     }
     return identifier.get(0);
+  }
+
+  @Override
+  public List<Identifier> getIdentifier() {
+    return Collections.unmodifiableList(this.identifier);
   }
 
   @Child(name = "mainLocation", type = {CareConnectLocation.class})
@@ -107,6 +117,6 @@ public class CareConnectOrganization extends Organization {
 
   @Override
   public boolean isEmpty() {
-    return super.isEmpty() && ElementUtil.isEmpty(mainLocation, organizationPeriod);
+    return super.isEmpty() && ElementUtil.isEmpty(mainLocation, organizationPeriod, identifier);
   }
 }

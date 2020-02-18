@@ -8,12 +8,21 @@ import ca.uhn.fhir.model.api.annotation.Extension;
 import ca.uhn.fhir.model.api.annotation.ResourceDef;
 import ca.uhn.fhir.util.ElementUtil;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-@ResourceDef(name = "Patient", profile = "https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Patient-1")
+@ResourceDef(name = "Patient", profile = CareConnectPatient.PROFILE)
 public class CareConnectPatient extends Patient {
 
   private static final long serialVersionUID = -1894418594217458769L;
+
+  static final String PROFILE = "https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Patient-1";
+
+
+  public CareConnectPatient() {
+    super();
+    this.setMeta(new Meta().addProfile(PROFILE));
+  }
 
   @Child(name = "identifier", type = {
       NHSNumberIdentifier.class}, order = Child.REPLACE_PARENT, min = 0, max = Child.MAX_UNLIMITED, modifier = false, summary = true)
@@ -29,7 +38,6 @@ public class CareConnectPatient extends Patient {
     for (Identifier i : value) {
       this.identifier.add((NHSNumberIdentifier) i);
     }
-    super.setIdentifier(value);
     return this;
   }
 
@@ -39,7 +47,6 @@ public class CareConnectPatient extends Patient {
   @Override
   public CareConnectPatient addIdentifier(Identifier value) {
     this.identifier.add((NHSNumberIdentifier) value);
-    super.addIdentifier(value);
     return this;
   }
 
@@ -47,7 +54,6 @@ public class CareConnectPatient extends Patient {
   public NHSNumberIdentifier addIdentifier() {
     NHSNumberIdentifier identifier = new NHSNumberIdentifier();
     this.identifier.add(identifier);
-    super.addIdentifier(identifier);
     return identifier;
   }
 
@@ -57,6 +63,11 @@ public class CareConnectPatient extends Patient {
       addIdentifier();
     }
     return identifier.get(0);
+  }
+
+  @Override
+  public List<Identifier> getIdentifier() {
+    return Collections.unmodifiableList(this.identifier);
   }
 
   @Child(name = "ethnicCategory")
@@ -349,7 +360,6 @@ public class CareConnectPatient extends Patient {
   @Override
   public CareConnectPatient addGeneralPractitioner(Reference reference) {
     generalPractitioner.add(reference);
-    super.addGeneralPractitioner(reference);
     return this;
   }
 
@@ -357,14 +367,12 @@ public class CareConnectPatient extends Patient {
   public Reference addGeneralPractitioner() {
     Reference reference = new Reference();
     generalPractitioner.add(reference);
-    super.addGeneralPractitioner(reference);
     return reference;
   }
 
   @Override
   public CareConnectPatient setGeneralPractitioner(List<Reference> value) {
     generalPractitioner = new ArrayList<>(value);
-    super.setGeneralPractitioner(value);
     return this;
   }
 
@@ -389,7 +397,6 @@ public class CareConnectPatient extends Patient {
   @Override
   public CareConnectPatient setManagingOrganization(Reference reference) {
     managingOrganization = reference;
-    super.setManagingOrganization(reference);
     return this;
   }
 
@@ -399,7 +406,26 @@ public class CareConnectPatient extends Patient {
         && ElementUtil
         .isEmpty(ethnicCategory, religiousAffiliation, cadavericDonor, residentialStatus,
             treatmentCategory, nhsCommunication, birthPlace, nominatedPharmacy,
-            deathNotificationStatus);
+            deathNotificationStatus, managingOrganization, generalPractitioner);
   }
 
+  @Override
+  public boolean equalsDeep(Base other_) {
+    if (!super.equalsDeep(other_))
+      return false;
+    if (!(other_ instanceof CareConnectPatient))
+      return false;
+    CareConnectPatient o = (CareConnectPatient) other_;
+    return compareDeep(ethnicCategory, o.ethnicCategory, true)
+        && compareDeep(religiousAffiliation, o.religiousAffiliation, true)
+        && compareDeep(cadavericDonor, o.cadavericDonor, true)
+        && compareDeep(residentialStatus, o.residentialStatus, true)
+        && compareDeep(treatmentCategory, o.treatmentCategory, true)
+        && compareDeep(nhsCommunication, o.nhsCommunication, true)
+        && compareDeep(birthPlace, o.birthPlace, true)
+        && compareDeep(nominatedPharmacy, o.nominatedPharmacy, true)
+        && compareDeep(deathNotificationStatus, o.deathNotificationStatus, true)
+        && compareDeep(managingOrganization, o.managingOrganization, true)
+        && compareDeep(generalPractitioner, o.generalPractitioner, true);
+  }
 }

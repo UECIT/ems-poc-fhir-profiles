@@ -7,12 +7,20 @@ import ca.uhn.fhir.model.api.annotation.Extension;
 import ca.uhn.fhir.model.api.annotation.ResourceDef;
 import ca.uhn.fhir.util.ElementUtil;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-@ResourceDef(name = "Practitioner", profile = "https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Practitioner-1")
+@ResourceDef(name = "Practitioner", profile = CareConnectPractitioner.PROFILE)
 public class CareConnectPractitioner extends Practitioner {
 
   private static final long serialVersionUID = 5673932590168362570L;
+
+  static final String PROFILE = "https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-Practitioner-1";
+
+  public CareConnectPractitioner() {
+    super();
+    this.setMeta(new Meta().addProfile(PROFILE));
+  }
 
   @Child(name = "identifier", order = Child.REPLACE_PARENT, min = 0, max = Child.MAX_UNLIMITED, modifier = true, summary = true)
   @Description(shortDefinition = "Practitioner identifiers")
@@ -27,7 +35,6 @@ public class CareConnectPractitioner extends Practitioner {
     for (Identifier i : value) {
       this.identifier.add((CareConnectIdentifier) i);
     }
-    super.setIdentifier(value);
     return this;
   }
 
@@ -37,7 +44,6 @@ public class CareConnectPractitioner extends Practitioner {
   @Override
   public CareConnectPractitioner addIdentifier(Identifier value) {
     this.identifier.add((CareConnectIdentifier) value);
-    super.addIdentifier(value);
     return this;
   }
 
@@ -54,6 +60,16 @@ public class CareConnectPractitioner extends Practitioner {
       addIdentifier();
     }
     return identifier.get(0);
+  }
+
+  @Override
+  public List<Identifier> getIdentifier() {
+    return Collections.unmodifiableList(this.identifier);
+  }
+
+  @Override
+  public boolean isEmpty() {
+    return super.isEmpty() && ElementUtil.isEmpty(identifier);
   }
 
   @Child(name = "nhsCommunication")
