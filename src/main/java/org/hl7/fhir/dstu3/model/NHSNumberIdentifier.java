@@ -14,9 +14,10 @@ public class NHSNumberIdentifier extends CareConnectIdentifier implements ICompo
   private static final long serialVersionUID = -3997879541395068454L;
 
   @Binding(valueSet = "https://fhir.hl7.org.uk/STU3/ValueSet/CareConnect-NHSNumberVerificationStatus-1")
-  @Child(name = "nhsNumberVerificationStatus", type = {
-      CodeableConcept.class}, modifier = false, summary = true)
-  @Extension(url = "https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-NHSNumberVerificationStatus-1", definedLocally = false, isModifier = false)
+  @Child(name = "nhsNumberVerificationStatus",
+      type = {CodeableConcept.class}, modifier = false, summary = true)
+  @Extension(url = "https://fhir.hl7.org.uk/STU3/StructureDefinition/Extension-CareConnect-NHSNumberVerificationStatus-1",
+      definedLocally = false, isModifier = false)
   @Description(shortDefinition = "The verification/tracing status of the NHS number")
   private CodeableConcept nhsNumberVerificationStatus;
 

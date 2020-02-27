@@ -11,11 +11,19 @@ import org.junit.Test;
 
 public class CareConnectOrganizationTest extends CareConnectProfileTest<CareConnectOrganization> {
 
+  private CareConnectIdentifier stubId() {
+    return (CareConnectIdentifier) new CareConnectIdentifier()
+        .setSystem("ods")
+        .setValue("id")
+        .setType(new CodeableConcept()
+            .addCoding(new Coding("system", "code", "display")));
+  }
+
   @Test
   public void identifierAdd() {
     setResource(new CareConnectOrganization());
 
-    CareConnectIdentifier identifier = new CareConnectIdentifier().setValue("id");
+    CareConnectIdentifier identifier = stubId();
     resource.addIdentifier(identifier);
     assertThat(resource.getIdentifier(), hasSize(1));
     assertThat(resource.getIdentifierFirstRep().equalsDeep(identifier), is(true));
@@ -33,7 +41,7 @@ public class CareConnectOrganizationTest extends CareConnectProfileTest<CareConn
   @Test
   public void identifierSet() {
     setResource(new CareConnectOrganization());
-    CareConnectIdentifier identifier = new CareConnectIdentifier().setValue("id");
+    CareConnectIdentifier identifier = stubId();
     resource.setIdentifier(Collections.singletonList(identifier));
 
     assertEquals(identifier, resource.getIdentifierFirstRep());
