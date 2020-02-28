@@ -4,6 +4,7 @@ import ca.uhn.fhir.model.api.annotation.Block;
 import ca.uhn.fhir.model.api.annotation.Child;
 import ca.uhn.fhir.model.api.annotation.DatatypeDef;
 import ca.uhn.fhir.model.api.annotation.Description;
+import ca.uhn.fhir.util.ElementUtil;
 import org.hl7.fhir.instance.model.api.ICompositeType;
 
 @DatatypeDef(name = "identifier")
@@ -27,15 +28,40 @@ public class CareConnectIdentifier extends Identifier implements ICompositeType 
   @Override
   public CareConnectIdentifier setSystem(String system) {
     this.system = new UriType(system);
-    super.setSystemElement(this.system);
     return this;
+  }
+
+  @Override
+  public boolean hasSystem() {
+    return this.system != null && !this.system.isEmpty();
+  }
+
+  @Override
+  public String getSystem() {
+    return this.system == null ? null : this.system.getValue();
   }
 
   @Override
   public CareConnectIdentifier setSystemElement(UriType value) {
     this.system = value;
-    super.setSystemElement(value);
     return this;
+  }
+
+  @Override
+  public UriType getSystemElement() {
+    if (this.system == null) {
+      if (Configuration.errorOnAutoCreate()) {
+        throw new Error("Attempt to auto-create Identifier.system");
+      } else if (Configuration.doAutoCreate()) {
+        this.system = new UriType(); // bb
+      }
+    }
+    return this.system;
+  }
+
+  @Override
+  public boolean hasSystemElement() {
+    return this.system != null && !this.system.isEmpty();
   }
 
   /**
@@ -53,15 +79,33 @@ public class CareConnectIdentifier extends Identifier implements ICompositeType 
   @Override
   public CareConnectIdentifier setValue(String value) {
     this.value = new StringType(value);
-    super.setValue(value);
     return this;
+  }
+
+  @Override
+  public boolean hasValue() {
+    return this.value != null && !this.value.isEmpty();
+  }
+
+  @Override
+  public String getValue() {
+    return this.value == null ? null : this.value.getValue();
   }
 
   @Override
   public CareConnectIdentifier setValueElement(StringType value) {
     this.value = value;
-    super.value = value;
     return this;
+  }
+
+  @Override
+  public StringType getValueElement() {
+    return this.value;
+  }
+
+  @Override
+  public boolean hasValueElement() {
+    return this.value != null && !this.value.isEmpty();
   }
 
   /**
@@ -80,7 +124,48 @@ public class CareConnectIdentifier extends Identifier implements ICompositeType 
   @Override
   public CareConnectIdentifier setAssigner(Reference assigner) {
     this.assigner = assigner;
-    super.setAssigner(assigner);
     return this;
+  }
+
+  @Override
+  public Reference getAssigner() {
+    return assigner;
+  }
+
+  @Override
+  public boolean hasAssigner() {
+    return this.assigner != null && !this.assigner.isEmpty();
+  }
+
+  @Override
+  public boolean isEmpty() {
+    return super.isEmpty() && ElementUtil.isEmpty(system, value, assigner);
+  }
+
+  @Override
+  public boolean equalsDeep(Base other_) {
+    if (!super.equalsDeep(other_)) {
+      return false;
+    }
+    if (!(other_ instanceof CareConnectIdentifier)) {
+      return false;
+    }
+    CareConnectIdentifier o = (CareConnectIdentifier) other_;
+    return compareDeep(system, o.system, true)
+        && compareDeep(value, o.value, true)
+        && compareDeep(assigner, o.assigner, true);
+  }
+
+  @Override
+  public boolean equalsShallow(Base other_) {
+    if (!super.equalsShallow(other_)) {
+      return false;
+    }
+    if (!(other_ instanceof CareConnectIdentifier)) {
+      return false;
+    }
+    CareConnectIdentifier o = (CareConnectIdentifier) other_;
+    return compareValues(system, o.system, true)
+        && compareValues(value, o.value, true);
   }
 }

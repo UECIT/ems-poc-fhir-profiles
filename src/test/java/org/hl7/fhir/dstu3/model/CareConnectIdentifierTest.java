@@ -3,6 +3,7 @@ package org.hl7.fhir.dstu3.model;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
+import ca.uhn.fhir.parser.IParser;
 import org.junit.Test;
 
 public class CareConnectIdentifierTest {
