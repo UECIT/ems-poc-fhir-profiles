@@ -30,8 +30,35 @@ public class NHSNumberIdentifier extends CareConnectIdentifier implements ICompo
     return this;
   }
 
+  public boolean hasNhsNumberVerificationStatus() {
+    return nhsNumberVerificationStatus != null && !nhsNumberVerificationStatus.isEmpty();
+  }
+
   @Override
   public boolean isEmpty() {
     return super.isEmpty() && ElementUtil.isEmpty(nhsNumberVerificationStatus);
+  }
+
+  @Override
+  public boolean equalsDeep(Base other_) {
+    if (!super.equalsDeep(other_)) {
+      return false;
+    }
+    if (!(other_ instanceof NHSNumberIdentifier)) {
+      return false;
+    }
+    NHSNumberIdentifier o = (NHSNumberIdentifier) other_;
+    return compareDeep(nhsNumberVerificationStatus, o.nhsNumberVerificationStatus, true);
+  }
+
+  @Override
+  public boolean equalsShallow(Base other_) {
+    if (!super.equalsShallow(other_)) {
+      return false;
+    }
+    if (!(other_ instanceof NHSNumberIdentifier)) {
+      return false;
+    }
+    return true;
   }
 }
