@@ -163,6 +163,7 @@ public class CareConnectPatientTest extends CareConnectProfileTest<CareConnectPa
     Reference reference = new Reference("Practitioner/1");
     resource.addGeneralPractitioner(reference);
 
+    assertTrue("Patient should have a GP", resource.hasGeneralPractitioner());
     assertEquals(1, resource.getGeneralPractitioner().size());
     assertEquals(reference, resource.getGeneralPractitionerFirstRep());
     assertFalse("Patient should not be empty", resource.isEmpty());
@@ -175,6 +176,7 @@ public class CareConnectPatientTest extends CareConnectProfileTest<CareConnectPa
     Reference reference = new Reference("Organization/1");
     resource.setManagingOrganization(reference);
 
+    assertTrue("Patient should have a managing organization", resource.hasManagingOrganization());
     assertEquals(reference, resource.getManagingOrganization());
     assertFalse("Patient should not be empty", resource.isEmpty());
   }

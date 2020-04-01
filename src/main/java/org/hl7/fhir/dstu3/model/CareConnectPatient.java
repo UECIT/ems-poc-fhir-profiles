@@ -384,6 +384,16 @@ public class CareConnectPatient extends Patient {
     return getGeneralPractitioner().get(0);
   }
 
+  @Override
+  public boolean hasGeneralPractitioner() {
+    if (this.generalPractitioner == null)
+      return false;
+    for (Reference item : this.generalPractitioner)
+      if (!item.isEmpty())
+        return true;
+    return false;
+  }
+
   @Child(name = "managingOrganization", type = {
       CareConnectOrganization.class}, order = Child.REPLACE_PARENT, min = 0, max = 1, modifier = false, summary = true)
   @Description(shortDefinition = "Organization that is the custodian of the patient record", formalDefinition = "Organization that is the custodian of the patient record.")
@@ -398,6 +408,11 @@ public class CareConnectPatient extends Patient {
   public CareConnectPatient setManagingOrganization(Reference reference) {
     managingOrganization = reference;
     return this;
+  }
+
+  @Override
+  public boolean hasManagingOrganization() {
+    return this.managingOrganization != null && !this.managingOrganization.isEmpty();
   }
 
   @Override
