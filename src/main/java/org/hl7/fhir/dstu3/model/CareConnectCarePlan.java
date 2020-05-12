@@ -1,29 +1,24 @@
 package org.hl7.fhir.dstu3.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.hl7.fhir.dstu3.model.Appointment;
-import org.hl7.fhir.dstu3.model.CarePlan;
-import org.hl7.fhir.dstu3.model.CommunicationRequest;
-import org.hl7.fhir.dstu3.model.DeviceRequest;
-import org.hl7.fhir.dstu3.model.Group;
-import org.hl7.fhir.dstu3.model.NutritionOrder;
-import org.hl7.fhir.dstu3.model.Reference;
-import org.hl7.fhir.dstu3.model.ReferralRequest;
-import org.hl7.fhir.dstu3.model.RequestGroup;
-import org.hl7.fhir.dstu3.model.Task;
-import org.hl7.fhir.dstu3.model.VisionPrescription;
-
 import ca.uhn.fhir.model.api.annotation.Block;
 import ca.uhn.fhir.model.api.annotation.Child;
 import ca.uhn.fhir.model.api.annotation.Description;
 import ca.uhn.fhir.model.api.annotation.ResourceDef;
+import ca.uhn.fhir.util.ElementUtil;
+import java.util.ArrayList;
+import java.util.List;
 
-@ResourceDef(name="CarePlan", profile="https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-CarePlan-1")
+@ResourceDef(name="CarePlan", profile=CareConnectCarePlan.PROFILE)
 public class CareConnectCarePlan extends CarePlan {
 
 	private static final long serialVersionUID = 1L;
+
+	static final String PROFILE = "https://fhir.hl7.org.uk/STU3/StructureDefinition/CareConnect-CarePlan-1";
+
+	public CareConnectCarePlan() {
+		super();
+		this.setMeta(new Meta().addProfile(PROFILE));
+	}
 
 	@Child(name = "identifier", type = {
 			CareConnectIdentifier.class }, order = Child.REPLACE_PARENT, min = 0, max = Child.MAX_UNLIMITED, modifier = false, summary = true)
@@ -50,10 +45,34 @@ public class CareConnectCarePlan extends CarePlan {
 	@Description(shortDefinition = "Who care plan is for", formalDefinition = "Identifies the patient or group whose intended care is described by the plan.")
 	protected Reference subject;
 
-	@Child(name = "context", type = { CareConnectEncounter.class, CareConnectEpisodeOfCare.class }, 
+	@Child(name = "context", type = { CareConnectEncounter.class, CareConnectEpisodeOfCare.class },
 		order = Child.REPLACE_PARENT, min = 0, max = 1, modifier = false, summary = true)
 	@Description(shortDefinition = "Created in context of", formalDefinition = "Identifies the original context in which this particular CarePlan was created.")
 	protected Reference context;
+
+	/**
+	 * @return {@link #context} (Identifies the original context in which this particular CarePlan was created.)
+	 */
+	public Reference getContext() {
+		if (this.context == null)
+			if (Configuration.errorOnAutoCreate())
+				throw new Error("Attempt to auto-create CarePlan.context");
+			else if (Configuration.doAutoCreate())
+				this.context = new Reference(); // cc
+		return this.context;
+	}
+
+	public boolean hasContext() {
+		return this.context != null && !this.context.isEmpty();
+	}
+
+	/**
+	 * @param value {@link #context} (Identifies the original context in which this particular CarePlan was created.)
+	 */
+	public CarePlan setContext(Reference value)  {
+		this.context = value;
+		return this;
+	}
 
 	@Child(name = "author", type = { CareConnectPatient.class, CareConnectPractitioner.class,
 			CareConnectRelatedPerson.class, CareConnectOrganization.class,
@@ -126,4 +145,21 @@ public class CareConnectCarePlan extends CarePlan {
 		@Description(shortDefinition = "Who will be responsible?", formalDefinition = "Identifies who's expected to be involved in the activity.")
 		protected List<Reference> performer;
 	 }
+
+	@Override
+	public boolean equalsDeep(Base other_) {
+		if (!super.equalsDeep(other_))
+			return false;
+		if (!(other_ instanceof CareConnectCarePlan))
+			return false;
+		CareConnectCarePlan o = (CareConnectCarePlan) other_;
+		return super.equalsDeep(o)
+				&& compareDeep(context, o.context, true);
+	}
+
+	@Override
+	public boolean isEmpty() {
+		return super.isEmpty() && ElementUtil
+				.isEmpty( context);
+	}
 }
