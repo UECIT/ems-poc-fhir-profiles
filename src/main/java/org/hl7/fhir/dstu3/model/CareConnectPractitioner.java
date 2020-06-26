@@ -90,7 +90,7 @@ public class CareConnectPractitioner extends Practitioner {
     private static final long serialVersionUID = 2L;
 
     @Child(name = "language")
-    @Extension(url = "https://fhir.hl7.org.uk/STU3/ValueSet/CareConnect-HumanLanguage-1", definedLocally = false, isModifier = false)
+    @Extension(url = "language", definedLocally = false, isModifier = false)
     protected CodeableConcept language;
 
     public CodeableConcept getLanguage() {
@@ -116,7 +116,7 @@ public class CareConnectPractitioner extends Practitioner {
     }
 
     @Child(name = "modeOfCommunication")
-    @Extension(url = "https://fhir.hl7.org.uk/STU3/ValueSet/CareConnect-LanguageAbilityMode-1", definedLocally = false, isModifier = false)
+    @Extension(url = "modeOfCommunication", definedLocally = false, isModifier = false)
     protected CodeableConcept modeOfCommunication;
 
     public CodeableConcept getModeOfCommunication() {
@@ -129,7 +129,7 @@ public class CareConnectPractitioner extends Practitioner {
     }
 
     @Child(name = "communicationProficiency")
-    @Extension(url = "https://fhir.hl7.org.uk/STU3/ValueSet/CareConnect-LanguageAbilityProficiency-1", definedLocally = false, isModifier = false)
+    @Extension(url = "communicationProficiency", definedLocally = false, isModifier = false)
     protected CodeableConcept communicationProficiency;
 
     public CodeableConcept getCommunicationProficiency() {
