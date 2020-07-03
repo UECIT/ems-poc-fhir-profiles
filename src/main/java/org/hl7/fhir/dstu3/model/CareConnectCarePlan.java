@@ -46,7 +46,7 @@ public class CareConnectCarePlan extends CarePlan {
 	protected Reference subject;
 
 	/**
-	 * @return {@link #context} (Identifies the original context in which this particular CarePlan was created.)
+	 * @return {@link #subject} (Identifies the patient or group whose intended care is described by the plan.)
 	 */
 	@Override
 	public Reference getSubject() {
@@ -64,7 +64,7 @@ public class CareConnectCarePlan extends CarePlan {
 	}
 
 	/**
-	 * @param value {@link #context} (Identifies the original context in which this particular CarePlan was created.)
+	 * @param value {@link #subject} (Identifies the patient or group whose intended care is described by the plan.)
 	 */
 	@Override
 	public CarePlan setSubject(Reference value)  {
