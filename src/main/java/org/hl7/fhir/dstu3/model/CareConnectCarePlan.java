@@ -45,6 +45,33 @@ public class CareConnectCarePlan extends CarePlan {
 	@Description(shortDefinition = "Who care plan is for", formalDefinition = "Identifies the patient or group whose intended care is described by the plan.")
 	protected Reference subject;
 
+	/**
+	 * @return {@link #context} (Identifies the original context in which this particular CarePlan was created.)
+	 */
+	@Override
+	public Reference getSubject() {
+		if (this.subject == null)
+			if (Configuration.errorOnAutoCreate())
+				throw new Error("Attempt to auto-create CarePlan.subject");
+			else if (Configuration.doAutoCreate())
+				this.subject = new Reference(); // cc
+		return this.subject;
+	}
+
+	@Override
+	public boolean hasSubject() {
+		return this.subject != null && !this.subject.isEmpty();
+	}
+
+	/**
+	 * @param value {@link #context} (Identifies the original context in which this particular CarePlan was created.)
+	 */
+	@Override
+	public CarePlan setSubject(Reference value)  {
+		this.subject = value;
+		return this;
+	}
+
 	@Child(name = "context", type = { CareConnectEncounter.class, CareConnectEpisodeOfCare.class },
 		order = Child.REPLACE_PARENT, min = 0, max = 1, modifier = false, summary = true)
 	@Description(shortDefinition = "Created in context of", formalDefinition = "Identifies the original context in which this particular CarePlan was created.")
@@ -154,12 +181,13 @@ public class CareConnectCarePlan extends CarePlan {
 			return false;
 		CareConnectCarePlan o = (CareConnectCarePlan) other_;
 		return super.equalsDeep(o)
-				&& compareDeep(context, o.context, true);
+				&& compareDeep(context, o.context, true)
+				&& compareDeep(subject, o.subject, true);
 	}
 
 	@Override
 	public boolean isEmpty() {
 		return super.isEmpty() && ElementUtil
-				.isEmpty( context);
+				.isEmpty( context, subject);
 	}
 }

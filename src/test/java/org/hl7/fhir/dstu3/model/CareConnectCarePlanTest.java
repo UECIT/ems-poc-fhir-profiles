@@ -15,7 +15,18 @@ public class CareConnectCarePlanTest extends CareConnectProfileTest<CareConnectC
     resource.setContext(reference);
 
     assertEquals(reference, resource.getContext());
-    assertFalse("Patient should not be empty", resource.isEmpty());
+    assertFalse("Care Plan should not be empty", resource.isEmpty());
+  }
+
+  @Test
+  public void setSubject() {
+    setResource(new CareConnectCarePlan());
+
+    Reference reference = new Reference("Encounter/345");
+    resource.setSubject(reference);
+
+    assertEquals(reference, resource.getSubject());
+    assertFalse("Care Plan should not be empty", resource.isEmpty());
   }
 
 }
